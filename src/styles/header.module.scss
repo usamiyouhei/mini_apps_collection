@@ -5,4 +5,43 @@
   display: flex;
   justify-content: space-between;
   padding: 20px 40px;
+  background-color: rgba(245, 245, 242, 0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(17, 24, 39, 0.08);
+}
+
+.logo {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.03;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  font-size: 14px;
+  color: #4b5563;
+
+  a {
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #111823;
+    }
+  }
+}
+
+@media (max-width: 758px) {
+  .header {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .nav {
+    flex-wrap: wrap;
+    gap: 12px 18px;
+  }
 }

@@ -1,4 +1,3 @@
-import React from "react";
 import styles from "@/styles/header.module.scss";
 import Link from "next/link";
 
@@ -9,7 +8,7 @@ export function Header() {
         Next mini Apps
       </Link>
 
-      <nav>
+      <nav className={styles.nav}>
         <Link href="/Todo">Todo</Link>
         <Link href="/Memo">Memo</Link>
         <Link href="/Weather">Weather</Link>
