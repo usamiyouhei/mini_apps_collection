@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import styles from "@/app/todo/todo.module.css";
 
 type Props = {
   onAddTask: (title: string) => void;
@@ -18,14 +19,17 @@ export default function TaskForm({ onAddTask }: Props) {
   };
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form className={styles.form} onSubmit={handleSubmit}>
         <input
+          className={styles.input}
           type="text"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder="タスクを入力..."
         />
-        <button type="submit">追加</button>
+        <button className={styles.button} type="submit">
+          追加
+        </button>
       </form>
     </div>
   );

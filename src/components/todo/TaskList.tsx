@@ -1,6 +1,7 @@
 import React from "react";
 import { Task } from "@/types/task";
 import TaskItem from "./TaskItem";
+import styles from "@/app/todo/todo.module.css";
 
 type Props = {
   tasks: Task[];
@@ -10,10 +11,10 @@ type Props = {
 
 export default function TaskList({ tasks, onToggleTask, onDeleteTask }: Props) {
   if (tasks.length === 0) {
-    return <p>まだタスクがありません</p>;
+    return <p className={styles.empty}>まだタスクがありません</p>;
   }
   return (
-    <ul>
+    <ul className={styles.list}>
       {tasks.map((task) => (
         <TaskItem
           key={task.id}
