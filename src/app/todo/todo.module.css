@@ -66,3 +66,29 @@
   border-color: #0f172a;
   box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.08);
 }
+
+.button {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 14px;
+  background: #0f172a;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.button:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.empty {
+  padding: 32px 16px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 18px;
+  color: #94a3b8;
+  text-align: center;
+}
