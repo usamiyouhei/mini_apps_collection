@@ -10,6 +10,7 @@ export default function TodoPage() {
   const [tasks, dispatch] = useReducer(taskReducer, []);
 
   const incompleteCount = tasks.filter((task) => !task.completed).length;
+  const completedCount = tasks.filter((task) => task.completed).length;
 
   const handleAddTask = (title: string) => {
     dispatch({ type: "ADD_TASK", payload: title });
@@ -44,10 +45,10 @@ export default function TodoPage() {
 
       <div className={styles.footer}>
         <p>
-          未完了:<span className={styles.count}></span>件
+          未完了:<span className={styles.count}>{incompleteCount}</span>件
         </p>
         <p>
-          完了:<span className={styles.count}></span>件
+          完了:<span className={styles.count}>{completedCount}</span>件
         </p>
       </div>
     </section>
