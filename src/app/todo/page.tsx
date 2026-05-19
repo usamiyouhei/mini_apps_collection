@@ -3,17 +3,36 @@
 import TaskForm from "@/components/todo/TaskForm";
 import TaskList from "@/components/todo/TaskList";
 import { taskReducer } from "@/reducers/task.reducer";
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import styles from "./todo.module.css";
+
+const STORAGE_KEY = "todo-tasks";
 
 export default function TodoPage() {
   const [tasks, dispatch] = useReducer(taskReducer, []);
 
+  useEffect(() => {
+    const savedTasks = localStorage.getItem(STORAGE_KEY);
+
+    if (!savedTasks) return;
+
+    try {
+      const parsedTasks = JSON.parse(savedTasks);
+      dispatch({ type: "SET_TASKS", payload: parsedTasks });
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
+  }, [tasks]);
+
   const incompleteCount = tasks.filter((task) => !task.completed).length;
   const completedCount = tasks.filter((task) => task.completed).length;
 
-  const handleAddTask = (title: string) => {
-    dispatch({ type: "ADD_TASK", payload: title });
+  const handleAddTask = (title: string, date: string) => {
+    dispatch({ type: "ADD_TASK", payload: { title, date } });
   };
 
   const handleToggleTask = (id: string) => {
