@@ -6,7 +6,7 @@ export type TaskAction =
   | { type: "DELETE_TASK"; payload: string }
   | { type: "RESTORE_TASK"; payload: string }
   | { type: "CLEAR_DELETED_TASKS" }
-  | { type: "SET_TASKS"; payload: string };
+  | { type: "SET_TASKS"; payload: Task[] };
 
 import React from "react";
 
@@ -41,6 +41,12 @@ export function taskReducer(tasks: Task[], action: TaskAction): Task[] {
       return tasks.map((task) =>
         task.id !== action.payload ? { ...task, deleted: false } : task,
       );
+
+    case "CLEAR_DELETED_TASKS":
+      return tasks.filter((task) => !task.deleted);
+
+    case "SET_TASKS":
+      return action.payload;
 
     default:
       return tasks;
