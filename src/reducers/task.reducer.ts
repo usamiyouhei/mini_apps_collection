@@ -1,9 +1,12 @@
 import { Task } from "@/types/task";
 
 export type TaskAction =
-  | { type: "ADD_TASK"; payload: string }
+  | { type: "ADD_TASK"; payload: { title: string; date: string } }
   | { type: "TOGGLE_TASK"; payload: string }
-  | { type: "DELETE_TASK"; payload: string };
+  | { type: "DELETE_TASK"; payload: string }
+  | { type: "RESTORE_TASK"; payload: string }
+  | { type: "CLEAR_DELETED_TASKS" }
+  | { type: "SET_TASKS"; payload: string };
 
 import React from "react";
 
@@ -14,8 +17,11 @@ export function taskReducer(tasks: Task[], action: TaskAction): Task[] {
         ...tasks,
         {
           id: crypto.randomUUID(),
-          title: action.payload,
+          title: action.payload.title,
+          date: action.payload.date,
           completed: false,
+          deleted: false,
+          createdAt: new Date().toISOString(),
         },
       ];
 
@@ -27,7 +33,14 @@ export function taskReducer(tasks: Task[], action: TaskAction): Task[] {
       );
 
     case "DELETE_TASK":
-      return tasks.filter((task) => task.id !== action.payload);
+      return tasks.map((task) =>
+        task.id !== action.payload ? { ...task, deleted: true } : task,
+      );
+
+    case "RESTORE_TASK":
+      return tasks.map((task) =>
+        task.id !== action.payload ? { ...task, deleted: false } : task,
+      );
 
     default:
       return tasks;
