@@ -5,6 +5,7 @@ import TaskList from "@/components/todo/TaskList";
 import { taskReducer } from "@/reducers/task.reducer";
 import { useEffect, useReducer } from "react";
 import styles from "./todo.module.css";
+import DeletedTaskList from "@/components/todo/DeletedTaskList";
 
 const STORAGE_KEY = "todo-tasks";
 
@@ -28,6 +29,9 @@ export default function TodoPage() {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
   }, [tasks]);
 
+  const activeTasks = tasks.filter((task) => !task.deleted);
+  const deletedTasks = tasks.filter((task) => task.deleted);
+
   const incompleteCount = tasks.filter((task) => !task.completed).length;
   const completedCount = tasks.filter((task) => task.completed).length;
 
@@ -47,7 +51,7 @@ export default function TodoPage() {
     dispatch({ type: "RESTORE_TASK", payload: id });
   };
 
-  const handleClearDeletedTask = () => {
+  const handleClearDeletedTasks = () => {
     dispatch({ type: "CLEAR_DELETED_TASKS" });
   };
 
@@ -69,16 +73,22 @@ export default function TodoPage() {
           onToggleTask={handleToggleTask}
           onDeleteTask={handleDeleteTask}
         />
+
+        <div className={styles.footer}>
+          <p>
+            未完了:<span className={styles.count}>{incompleteCount}</span>件
+          </p>
+          <p>
+            完了:<span className={styles.count}>{completedCount}</span>件
+          </p>
+        </div>
       </div>
 
-      <div className={styles.footer}>
-        <p>
-          未完了:<span className={styles.count}>{incompleteCount}</span>件
-        </p>
-        <p>
-          完了:<span className={styles.count}>{completedCount}</span>件
-        </p>
-      </div>
+      <DeletedTaskList
+        tasks={deletedTasks}
+        onRestoreTask={handleRestoreTask}
+        onClearDeletedTasks={handleClearDeletedTasks}
+      />
     </section>
   );
 }
