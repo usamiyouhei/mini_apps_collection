@@ -23,6 +23,8 @@ export default function TaskItem({ task, onToggleTask, onDeleteTask }: Props) {
         >
           {task.title}
         </span>
+
+        <span className={styles.taskDate}>{task.date}</span>
       </label>
 
       <button
