@@ -7,12 +7,21 @@ type Props = {
   onAddTask: (title: string, date: string) => void;
 };
 
-function getTodayString() {
-  return new Date().toISOString().split("T")[0];
+// function getTodayString() {
+//   return new Date().toISOString().split("T")[0];
+// }
+
+function getDateStringAfter(days: number) {
+  const date = new Date();
+  date.setDate(date.getDate() + days);
+  return date.toISOString().split("T")[0];
 }
 export default function TaskForm({ onAddTask }: Props) {
+  const today = getDateStringAfter(0);
+  const nextWeek = getDateStringAfter(7);
   const [title, setTitle] = useState("");
-  const [date, setDate] = useState(getTodayString());
+  // const [date, setDate] = useState(getTodayString());
+  const [date, setDate] = useState(today);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -37,6 +46,8 @@ export default function TaskForm({ onAddTask }: Props) {
           className={styles.dataInput}
           type="date"
           value={date}
+          min={today}
+          max={nextWeek}
           onChange={(e) => setDate(e.target.value)}
         />
         <button className={styles.button} type="submit">
