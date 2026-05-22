@@ -42,6 +42,15 @@ export default function TodoPage() {
   const handleDeleteTask = (id: string) => {
     dispatch({ type: "DELETE_TASK", payload: id });
   };
+
+  const handleRestoreTask = (id: string) => {
+    dispatch({ type: "RESTORE_TASK", payload: id });
+  };
+
+  const handleClearDeletedTask = () => {
+    dispatch({ type: "CLEAR_DELETED_TASKS" });
+  };
+
   return (
     <section className={styles.todo}>
       <div className={styles.header}>
