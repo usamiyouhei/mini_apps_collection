@@ -34,12 +34,12 @@ export function taskReducer(tasks: Task[], action: TaskAction): Task[] {
 
     case "DELETE_TASK":
       return tasks.map((task) =>
-        task.id !== action.payload ? { ...task, deleted: true } : task,
+        task.id === action.payload ? { ...task, deleted: true } : task,
       );
 
     case "RESTORE_TASK":
       return tasks.map((task) =>
-        task.id !== action.payload ? { ...task, deleted: false } : task,
+        task.id === action.payload ? { ...task, deleted: false } : task,
       );
 
     case "CLEAR_DELETED_TASKS":
