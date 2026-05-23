@@ -37,7 +37,7 @@ export default function DeletedTaskList({
                 <p className={styles.deletedTaskDate}>{task.date}</p>
               </div>
               <button
-                className={styles.restore}
+                className={styles.restoreButton}
                 type="button"
                 onClick={() => onRestoreTask(task.id)}
               >

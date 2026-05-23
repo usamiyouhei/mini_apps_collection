@@ -227,3 +227,48 @@
   padding: 0;
   list-style: none;
 }
+
+.deletedItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.deletedTaskTitle {
+  margin: 0;
+  color: #7f1d1d;
+  font-weight: 700;
+  text-decoration: line-through;
+}
+
+.deletedTaskDate {
+  margin: 4px 0 0;
+  color: #b91c1c;
+  font-size: 0.8rem;
+}
+
+.restoreButton {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 999px;
+  background: #fee2e2;
+  color: #991b1b;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .dateInput {
+    width: 100%;
+  }
+  .deletedHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
