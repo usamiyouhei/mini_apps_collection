@@ -18,13 +18,15 @@ export default function TaskItem({ task, onToggleTask, onDeleteTask }: Props) {
           checked={task.completed}
           onChange={() => onToggleTask(task.id)}
         />
-        <span
-          className={`${styles.taskTitle} ${task.completed ? styles.completed : ""}`}
-        >
-          {task.title}
-        </span>
+        <span className={styles.taskContent}>
+          <span
+            className={`${styles.taskTitle} ${task.completed ? styles.completed : ""}`}
+          >
+            {task.title}
+          </span>
 
-        <span className={styles.taskDate}>{task.date}</span>
+          <span className={styles.taskDate}>{task.date}</span>
+        </span>
       </label>
 
       <button

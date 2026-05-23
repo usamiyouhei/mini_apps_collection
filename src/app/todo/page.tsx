@@ -32,8 +32,8 @@ export default function TodoPage() {
   const activeTasks = tasks.filter((task) => !task.deleted);
   const deletedTasks = tasks.filter((task) => task.deleted);
 
-  const incompleteCount = tasks.filter((task) => !task.completed).length;
-  const completedCount = tasks.filter((task) => task.completed).length;
+  const incompleteCount = activeTasks.filter((task) => !task.completed).length;
+  const completedCount = activeTasks.filter((task) => task.completed).length;
 
   const handleAddTask = (title: string, date: string) => {
     dispatch({ type: "ADD_TASK", payload: { title, date } });
@@ -69,7 +69,7 @@ export default function TodoPage() {
         <TaskForm onAddTask={handleAddTask} />
 
         <TaskList
-          tasks={tasks}
+          tasks={activeTasks}
           onToggleTask={handleToggleTask}
           onDeleteTask={handleDeleteTask}
         />

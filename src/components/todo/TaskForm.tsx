@@ -43,7 +43,7 @@ export default function TaskForm({ onAddTask }: Props) {
         />
 
         <input
-          className={styles.dataInput}
+          className={styles.dateInput}
           type="date"
           value={date}
           min={today}
