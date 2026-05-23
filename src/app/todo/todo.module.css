@@ -188,8 +188,42 @@
   font-size: 0.8em;
 }
 
-.deleteSection {
+.deletedSection {
   margin-top: 32px;
   padding: 24px;
   border: 1px solid #fee2ef;
+  border-radius: 24px;
+  background: #fff7f7;
+}
+
+.deletedHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.deletedTitle {
+  margin: 0;
+  color: #991b1b;
+  font-size: 1.1rem;
+}
+
+.clearButton {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 999px;
+  background: #991b1b;
+  color: #fff;
+  font-size: 0.85em;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.deletedList {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
