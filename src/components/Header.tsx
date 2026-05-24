@@ -9,11 +9,12 @@ export function Header() {
       </Link>
 
       <nav className={styles.nav}>
-        <Link href="/Todo">Todo</Link>
-        <Link href="/Memo">Memo</Link>
-        <Link href="/Weather">Weather</Link>
-        <Link href="/Calculater">Calculater</Link>
-        <Link href="English">English</Link>
+        <Link href="/">Home</Link>
+        <Link href="/todo">Todo</Link>
+        <Link href="/memo">Memo</Link>
+        <Link href="/weather">Weather</Link>
+        <Link href="/calculater">Calculater</Link>
+        <Link href="/english">English</Link>
       </nav>
     </header>
   );

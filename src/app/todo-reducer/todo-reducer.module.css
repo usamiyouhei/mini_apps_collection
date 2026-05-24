@@ -1,0 +1,274 @@
+.todo {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+.header {
+  margin-bottom: 32px;
+}
+
+.label {
+  display: inline-block;
+  margin-bottom: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #64748b;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-size: clamp(2rem, 5vw, 3.2rem);
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+  color: #0f172a;
+}
+
+.text {
+  max-width: 520px;
+  margin-top: 16px;
+  color: #64748b;
+  line-height: 1.8;
+}
+
+.card {
+  padding: 24px;
+  border: 1px solid #e2e8f0;
+  border-radius: 24px;
+  background-color: #fff;
+  box-shadow: 0 20px 60px rgba(15, 23, 42, 0.08);
+}
+
+.form {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.input {
+  flex: 1;
+  background-color: #fff;
+  color: #0f172a;
+  min-width: 0;
+  padding: 14px 16px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  font-size: 1rem;
+  outline: none;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.input:focus {
+  border-color: #0f172a;
+  box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.08);
+}
+
+.button {
+  padding: 14px 20px;
+  border: none;
+  border-radius: 14px;
+  background: #0f172a;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease;
+}
+
+.button:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+}
+
+.empty {
+  padding: 32px 16px;
+  border: 1px dashed #cbd5e1;
+  border-radius: 18px;
+  color: #94a3b8;
+  text-align: center;
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 14px 16px;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #f8fcf8;
+}
+
+.itemLabel {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+
+.checkbox {
+  width: 18px;
+  height: 18px;
+  accent-color: #0f172a;
+}
+
+.taskTitle {
+  color: #0f172a;
+  font-weight: 600;
+  word-break: break-word;
+}
+
+.completed {
+  color: #94a3b8;
+  text-decoration: line-through;
+}
+
+.deleteButton {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 999;
+  background: #fee2ef;
+  color: #b91c1c;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  margin-top: 20px;
+  color: #64748b;
+  font-size: 0.95rem;
+}
+
+.count {
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.dateInput {
+  padding: 14px 16px;
+  border: 1px solid #cbd5e1;
+  background-color: #fff;
+  color: #0f172a;
+  border-radius: 14px;
+  font-size: 1rem;
+  outline: none;
+}
+
+.dateInput:focus {
+  border-color: #0f172a;
+  box-shadow: 0 0 0 4px rgba(15, 23, 42, 0.08);
+}
+
+.taskContent {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.taskDate {
+  color: #94a3b8;
+  font-size: 0.8em;
+}
+
+.deletedSection {
+  margin-top: 32px;
+  padding: 24px;
+  border: 1px solid #fee2ef;
+  border-radius: 24px;
+  background: #fff7f7;
+}
+
+.deletedHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+.deletedTitle {
+  margin: 0;
+  color: #991b1b;
+  font-size: 1.1rem;
+}
+
+.clearButton {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 999px;
+  background: #991b1b;
+  color: #fff;
+  font-size: 0.85em;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.deletedList {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.deletedItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: #ffffff;
+}
+
+.deletedTaskTitle {
+  margin: 0;
+  color: #7f1d1d;
+  font-weight: 700;
+  text-decoration: line-through;
+}
+
+.deletedTaskDate {
+  margin: 4px 0 0;
+  color: #b91c1c;
+  font-size: 0.8rem;
+}
+
+.restoreButton {
+  flex-shrink: 0;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 999px;
+  background: #fee2e2;
+  color: #991b1b;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+@media (max-width: 640px) {
+  .dateInput {
+    width: 100%;
+  }
+  .deletedHeader {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

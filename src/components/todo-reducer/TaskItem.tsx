@@ -1,6 +1,6 @@
 import React from "react";
 import { Task } from "@/types/task";
-import styles from "@/app/todo/todo.module.css";
+import styles from "@/app/todo-reducer/todo-reducer.module.css";
 
 type Props = {
   task: Task;

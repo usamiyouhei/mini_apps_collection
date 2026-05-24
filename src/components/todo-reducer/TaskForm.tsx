@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "@/app/todo/todo.module.css";
+import styles from "@/app/todo-reducer/todo-reducer.module.css";
 
 type Props = {
   onAddTask: (title: string, date: string) => void;

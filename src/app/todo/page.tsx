@@ -1,94 +1,48 @@
-"use client";
-
-import TaskForm from "@/components/todo/TaskForm";
-import TaskList from "@/components/todo/TaskList";
-import { taskReducer } from "@/reducers/task.reducer";
-import { useEffect, useReducer } from "react";
+import React from "react";
+import Link from "next/link";
 import styles from "./todo.module.css";
-import DeletedTaskList from "@/components/todo/DeletedTaskList";
 
-const STORAGE_KEY = "todo-tasks";
+const todoApps = [
+  {
+    title: "useReducer Todo",
+    description: "React標準のuseReducerで状態管理するTodoアプリ",
+    href: "/todo-reducer",
+  },
+  {
+    title: "Zustand Todo",
+    description: "軽量状態管理ライブラリZustandで作るTodoアプリ",
+    href: "/todo-zustand",
+  },
+  {
+    title: "Jotai Todo",
+    description: "Atomベースで状態管理するJotai版Todoアプリ",
+    href: "/todo-jotai",
+  },
+];
 
-export default function TodoPage() {
-  const [tasks, dispatch] = useReducer(taskReducer, []);
-
-  useEffect(() => {
-    const savedTasks = localStorage.getItem(STORAGE_KEY);
-
-    if (!savedTasks) return;
-
-    try {
-      const parsedTasks = JSON.parse(savedTasks);
-      dispatch({ type: "SET_TASKS", payload: parsedTasks });
-    } catch {
-      localStorage.removeItem(STORAGE_KEY);
-    }
-  }, []);
-
-  useEffect(() => {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks));
-  }, [tasks]);
-
-  const activeTasks = tasks.filter((task) => !task.deleted);
-  const deletedTasks = tasks.filter((task) => task.deleted);
-
-  const incompleteCount = activeTasks.filter((task) => !task.completed).length;
-  const completedCount = activeTasks.filter((task) => task.completed).length;
-
-  const handleAddTask = (title: string, date: string) => {
-    dispatch({ type: "ADD_TASK", payload: { title, date } });
-  };
-
-  const handleToggleTask = (id: string) => {
-    dispatch({ type: "TOGGLE_TASK", payload: id });
-  };
-
-  const handleDeleteTask = (id: string) => {
-    dispatch({ type: "DELETE_TASK", payload: id });
-  };
-
-  const handleRestoreTask = (id: string) => {
-    dispatch({ type: "RESTORE_TASK", payload: id });
-  };
-
-  const handleClearDeletedTasks = () => {
-    dispatch({ type: "CLEAR_DELETED_TASKS" });
-  };
-
+export default function TodoSelectPage() {
   return (
-    <section className={styles.todo}>
-      <div className={styles.header}>
-        <span className={styles.label}>useReducer Practice</span>
-        <h1 className={styles.title}>Todo App</h1>
-        <p className={styles.text}>
-          ReactのuseReducerを使ってタスクの追加、完了切り替え・削除を管理するアプリです
-        </p>
-      </div>
+    <div>
+      <section className={styles.todoSelect}>
+        <div className={styles.inner}>
+          <p className={styles.label}>Todo Apps</p>
 
-      <div className={styles.card}>
-        <TaskForm onAddTask={handleAddTask} />
-
-        <TaskList
-          tasks={activeTasks}
-          onToggleTask={handleToggleTask}
-          onDeleteTask={handleDeleteTask}
-        />
-
-        <div className={styles.footer}>
-          <p>
-            未完了:<span className={styles.count}>{incompleteCount}</span>件
+          <h1 className={styles.title}>Todoアプリを選択</h1>
+          <p className={styles.text}>
+            useReducer、Zustand、Jotaiの3種類の状態管理で作ったTodoアプリを比較できます。
           </p>
-          <p>
-            完了:<span className={styles.count}>{completedCount}</span>件
-          </p>
+
+          <div className={styles.grid}>
+            {todoApps.map((app) => (
+              <Link key={app.href} href={app.href} className={styles.card}>
+                <h2>{app.title}</h2>
+                <p>{app.description}</p>
+                <span>開く</span>
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
-
-      <DeletedTaskList
-        tasks={deletedTasks}
-        onRestoreTask={handleRestoreTask}
-        onClearDeletedTasks={handleClearDeletedTasks}
-      />
-    </section>
+      </section>
+    </div>
   );
 }
