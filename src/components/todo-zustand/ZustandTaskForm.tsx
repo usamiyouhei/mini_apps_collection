@@ -1,7 +1,7 @@
 "use client";
 
 import { useTodoStore } from "@/store/todo.store";
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import styles from "./ZustandTaskForm.module.scss";
 
 export default function ZustandTaskForm() {
@@ -10,8 +10,18 @@ export default function ZustandTaskForm() {
 
   const addTask = useTodoStore((state) => state.addTask);
 
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!title.trim() || !date) return;
+
+    addTask(title, date);
+    setTitle("");
+    setDate("");
+  };
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit}>
       <div className={styles.inputGroup}>
         <input
           className={styles.input}
