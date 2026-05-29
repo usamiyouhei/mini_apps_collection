@@ -1,4 +1,6 @@
 "use client";
+
+import ZustandDeleteTask from "@/components/todo-zustand/ZustandDeleteTask";
 import styles from "./todo-zustand.module.scss";
 import ZustandTaskForm from "@/components/todo-zustand/ZustandTaskForm";
 import ZustandTaskList from "@/components/todo-zustand/ZustandTaskList";
@@ -21,6 +23,7 @@ export default function TodoZustandPage() {
         </div>
         <ZustandTaskForm />
         <ZustandTaskList tasks={activetasks} />
+        <ZustandDeleteTask tasks={deletedTasks} />
       </section>
     </main>
   );
