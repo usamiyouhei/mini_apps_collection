@@ -1,5 +1,6 @@
 import { Task } from "@/types/task";
 import styles from "./ZustandTaskList.module.scss";
+import ZustandTaskItem from "./ZustandTaskItem";
 
 type Props = {
   tasks: Task[];
@@ -20,7 +21,11 @@ export default function ZustandTaskList({ tasks }: Props) {
         <span>{tasks.length} items</span>
       </div>
 
-      <ul className={styles.list}></ul>
+      <ul className={styles.list}>
+        {tasks.map((task) => (
+          <ZustandTaskItem key={task.id} task={task} />
+        ))}
+      </ul>
     </section>
   );
 }
