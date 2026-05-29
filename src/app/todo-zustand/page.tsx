@@ -1,8 +1,14 @@
-import React from "react";
+"use client";
 import styles from "./todo-zustand.module.scss";
 import ZustandTaskForm from "@/components/todo-zustand/ZustandTaskForm";
+import ZustandTaskList from "@/components/todo-zustand/ZustandTaskList";
+import { useTodoStore } from "@/store/todo.store";
 
 export default function TodoZustandPage() {
+  const tasks = useTodoStore((state) => state.tasks);
+  const activetasks = tasks.filter((task) => !task.deleted);
+  const deletedTasks = tasks.filter((task) => task.deleted);
+
   return (
     <main className={styles.page}>
       <section className={styles.todoCard}>
@@ -14,6 +20,7 @@ export default function TodoZustandPage() {
           </p>
         </div>
         <ZustandTaskForm />
+        <ZustandTaskList tasks={activetasks} />
       </section>
     </main>
   );
