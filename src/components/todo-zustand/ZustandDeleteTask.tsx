@@ -22,7 +22,7 @@ export default function ZustandDeleteTask({ tasks }: Props) {
         </button>
       </div>
 
-      <ul>
+      <ul className={styles.list}>
         {tasks.map((task) => (
           <li className={styles.item} key={task.id}>
             <div>
