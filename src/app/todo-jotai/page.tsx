@@ -8,6 +8,9 @@ import {
 import { useAtom } from "jotai";
 import styles from "./todo-jotai.module.scss";
 import React from "react";
+import JotaiTaskForm from "@/components/todo-jotai/JotaiTaskForm";
+import JotaiTaskList from "@/components/todo-jotai/JotaiTaskList";
+import JotaiDeletedTaskList from "@/components/todo-jotai/JotaiDeletedTaskList";
 
 export default function TodoJotaiPage() {
   const [activeTasks] = useAtom(activeJotaiTasksAtom);
@@ -27,6 +30,10 @@ export default function TodoJotaiPage() {
           <p>未完了タスク</p>
           <strong>{incompleteCount}</strong>
         </div>
+
+        <JotaiTaskForm />
+        <JotaiTaskList tasks={activeTasks} />
+        <JotaiDeletedTaskList tasks={deletedTasks} />
       </div>
     </section>
   );
