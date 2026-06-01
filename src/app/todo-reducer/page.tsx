@@ -1,11 +1,11 @@
 "use client";
 
-import TaskForm from "@/components/todo-reducer/TaskForm";
-import TaskList from "@/components/todo-reducer/TaskList";
+import TaskForm from "@/components/todo-reducer/ReducerTaskForm";
+import TaskList from "@/components/todo-reducer/ReducerTaskList";
 import { taskReducer } from "@/reducers/task.reducer";
 import { useEffect, useReducer } from "react";
 import styles from "./todo-reducer.module.scss";
-import DeletedTaskList from "@/components/todo-reducer/DeletedTaskList";
+import DeletedTaskList from "@/components/todo-reducer/ReducerDeletedTaskList";
 
 const STORAGE_KEY = "todo-tasks";
 
