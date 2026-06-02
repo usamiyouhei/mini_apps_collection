@@ -17,8 +17,36 @@ export default function JotaiDeletedTaskList({ tasks }: Props) {
 
   if (tasks.length === 0) return null;
   return (
-    <section>
-      <div></div>
+    <section className={styles.deletedSection}>
+      <div className={styles.deletedHeader}>
+        <h2>Deleted Tasks</h2>
+        <button
+          type="button"
+          className={styles.clearButton}
+          onClick={clearDeletedTasks}
+        >
+          Clear All
+        </button>
+      </div>
+
+      <ul className={styles.deletedList}>
+        {tasks.map((task) => (
+          <li key={task.id} className={styles.deletedItem}>
+            <div>
+              <p>{task.title}</p>
+              <span>{task.date}</span>
+            </div>
+
+            <button
+              type="button"
+              className={styles.restoreButton}
+              onClick={() => restoreTask(task.id)}
+            >
+              Restore
+            </button>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
