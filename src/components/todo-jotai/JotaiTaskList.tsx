@@ -13,7 +13,7 @@ export default function JotaiTaskList({ tasks }: Props) {
   }
 
   return (
-    <ul>
+    <ul className={styles.taskList}>
       {tasks.map((task) => (
         <JotaiTaskItem key={task.id} task={task} />
       ))}
