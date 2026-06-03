@@ -35,7 +35,9 @@ export default function JotaiTaskItem({ task }: Props) {
         type="button"
         onClick={() => deleteTask(task.id)}
         className={styles.deleteButton}
-      ></button>
+      >
+        Delete
+      </button>
     </li>
   );
 }

@@ -60,7 +60,9 @@
   font-size: 32px;
   color: #2563eb;
 }
-.form {
-  display: grid;
-  grid-template-columns: 1fr 180px auto;
+
+@media (max-width: 720px) {
+  .page {
+    padding: 36px 16px;
+  }
 }
