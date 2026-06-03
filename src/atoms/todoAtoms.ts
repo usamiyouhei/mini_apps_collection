@@ -9,7 +9,7 @@ export const activeJotaiTasksAtom = atom((get) =>
 );
 
 export const deletedJotaiTasksAtom = atom((get) =>
-  get(jotaiTasksAtom).filter((task) => !task.deleted),
+  get(jotaiTasksAtom).filter((task) => task.deleted),
 );
 
 export const incompleteJotaiCountAtom = atom(
