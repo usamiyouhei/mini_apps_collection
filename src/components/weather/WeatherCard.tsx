@@ -31,5 +31,16 @@ export default function WeatherCard({ weather, isLoading, error }: Props) {
   if (!weather) {
     return <div className={styles.card}>天気情報がありません。</div>;
   }
-  return <div></div>;
+  return (
+    <div>
+      <section className={styles.card}>
+        <p className={styles.label}>Todays Weather</p>
+        <h2 className={styles.city}>{weather.city}</h2>
+        <p className={styles.temp}>{weather.temperature}</p>
+        <p className={styles.text}>
+          {getWeatherLabel(weather.weathercode)} / Wind{weather.windspeed} km/h
+        </p>
+      </section>
+    </div>
+  );
 }
