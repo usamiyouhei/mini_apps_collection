@@ -36,10 +36,18 @@ export default function useWeather() {
           weathercode: data.current_weather.weathercode,
         });
       } catch (error) {
+        setError("天気情報を取得できませんでした。");
         console.error(error);
+      } finally {
+        setIsLoading(false);
       }
     };
-
-    return () => {};
+    fetchWeather();
   }, []);
+
+  return {
+    weather,
+    isLoading,
+    error,
+  };
 }
