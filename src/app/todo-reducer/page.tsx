@@ -8,6 +8,7 @@ import styles from "./todo-reducer.module.scss";
 import DeletedTaskList from "@/components/todo-reducer/ReducerDeletedTaskList";
 import useWeather from "@/hooks/useWeather";
 import WeatherCard from "@/components/weather/WeatherCard";
+import WeatherSuggestions from "@/components/weather/WeatherSuggestions";
 
 const STORAGE_KEY = "todo-tasks";
 
@@ -58,6 +59,16 @@ export default function TodoPage() {
     dispatch({ type: "CLEAR_DELETED_TASKS" });
   };
 
+  const handleAddSuggestionTask = (title: string) => {
+    dispatch({
+      type: "ADD_TASK",
+      payload: {
+        title,
+        date: new Date().toISOString().split("T")[0],
+      },
+    });
+  };
+
   return (
     <section className={styles.todo}>
       <div className={styles.header}>
@@ -70,6 +81,10 @@ export default function TodoPage() {
 
       <div className={styles.card}>
         <WeatherCard weather={weather} isLoading={isLoading} error={error} />
+        <WeatherSuggestions
+          weather={weather}
+          onAddTask={handleAddSuggestionTask}
+        />
         <TaskForm onAddTask={handleAddTask} />
 
         <TaskList
