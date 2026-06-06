@@ -36,7 +36,7 @@ export default function WeatherCard({ weather, isLoading, error }: Props) {
       <section className={styles.card}>
         <p className={styles.label}>Todays Weather</p>
         <h2 className={styles.city}>{weather.city}</h2>
-        <p className={styles.temp}>{weather.temperature}</p>
+        <p className={styles.temp}>{weather.temperature}°C</p>
         <p className={styles.text}>
           {getWeatherLabel(weather.weathercode)} / Wind{weather.windspeed} km/h
         </p>
