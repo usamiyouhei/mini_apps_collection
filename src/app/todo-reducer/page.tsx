@@ -6,11 +6,14 @@ import { taskReducer } from "@/reducers/task.reducer";
 import { useEffect, useReducer } from "react";
 import styles from "./todo-reducer.module.scss";
 import DeletedTaskList from "@/components/todo-reducer/ReducerDeletedTaskList";
+import useWeather from "@/hooks/useWeather";
+import WeatherCard from "@/components/weather/WeatherCard";
 
 const STORAGE_KEY = "todo-tasks";
 
 export default function TodoPage() {
   const [tasks, dispatch] = useReducer(taskReducer, []);
+  const { weather, isLoading, error } = useWeather();
 
   useEffect(() => {
     const savedTasks = localStorage.getItem(STORAGE_KEY);
@@ -66,6 +69,7 @@ export default function TodoPage() {
       </div>
 
       <div className={styles.card}>
+        <WeatherCard weather={weather} isLoading={isLoading} error={error} />
         <TaskForm onAddTask={handleAddTask} />
 
         <TaskList
