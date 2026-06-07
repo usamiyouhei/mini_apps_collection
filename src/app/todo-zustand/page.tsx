@@ -5,11 +5,14 @@ import styles from "./todo-zustand.module.scss";
 import ZustandTaskForm from "@/components/todo-zustand/ZustandTaskForm";
 import ZustandTaskList from "@/components/todo-zustand/ZustandTaskList";
 import { useTodoStore } from "@/store/todo.store";
+import WeatherCard from "@/components/weather/WeatherCard";
+import useWeather from "@/hooks/useWeather";
 
 export default function TodoZustandPage() {
   const tasks = useTodoStore((state) => state.tasks);
   const activetasks = tasks.filter((task) => !task.deleted);
   const deletedTasks = tasks.filter((task) => task.deleted);
+  const { weather, isLoading, error } = useWeather();
 
   return (
     <main className={styles.page}>
@@ -21,6 +24,7 @@ export default function TodoZustandPage() {
             Zustandで状態管理したTodoアプリです。タスクの追加・完了・削除・復元ができます。
           </p>
         </div>
+        <WeatherCard weather={weather} isLoading={isLoading} error={error} />
         <ZustandTaskForm />
         <ZustandTaskList tasks={activetasks} />
         <ZustandDeleteTask tasks={deletedTasks} />
