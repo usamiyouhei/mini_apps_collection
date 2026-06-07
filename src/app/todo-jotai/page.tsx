@@ -2,20 +2,33 @@
 
 import {
   activeJotaiTasksAtom,
+  addJotaiTaskAtom,
   deletedJotaiTasksAtom,
   incompleteJotaiCountAtom,
 } from "@/atoms/todoAtoms";
-import { useAtom } from "jotai";
+import { useAtom, useSetAtom } from "jotai";
 import styles from "./todo-jotai.module.scss";
 import React from "react";
 import JotaiTaskForm from "@/components/todo-jotai/JotaiTaskForm";
 import JotaiTaskList from "@/components/todo-jotai/JotaiTaskList";
 import JotaiDeletedTaskList from "@/components/todo-jotai/JotaiDeletedTaskList";
+import WeatherCard from "@/components/weather/WeatherCard";
+import useWeather from "@/hooks/useWeather";
 
 export default function TodoJotaiPage() {
   const [activeTasks] = useAtom(activeJotaiTasksAtom);
   const [deletedTasks] = useAtom(deletedJotaiTasksAtom);
   const [incompleteCount] = useAtom(incompleteJotaiCountAtom);
+
+  const addTask = useSetAtom(addJotaiTaskAtom);
+  const { weather, isLoading, error } = useWeather();
+
+  const handleAddSuggestionTask = (title: string) => {
+    addTask({
+      title,
+      date: new Date().toISOString().split("T")[0],
+    });
+  };
 
   return (
     <section className={styles.page}>
@@ -25,6 +38,8 @@ export default function TodoJotaiPage() {
           <h1 className={styles.title}>Atomic Task Manager</h1>
           <p>Jotaiのatomで状態を分割して管理するTodoアプリです。</p>
         </div>
+
+        <WeatherCard weather={weather} isLoading={isLoading} error={error} />
 
         <div className={styles.summary}>
           <p>未完了タスク</p>
