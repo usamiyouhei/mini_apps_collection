@@ -7,12 +7,19 @@ import ZustandTaskList from "@/components/todo-zustand/ZustandTaskList";
 import { useTodoStore } from "@/store/todo.store";
 import WeatherCard from "@/components/weather/WeatherCard";
 import useWeather from "@/hooks/useWeather";
+import WeatherSuggestions from "@/components/weather/WeatherSuggestions";
 
 export default function TodoZustandPage() {
   const tasks = useTodoStore((state) => state.tasks);
   const activetasks = tasks.filter((task) => !task.deleted);
   const deletedTasks = tasks.filter((task) => task.deleted);
   const { weather, isLoading, error } = useWeather();
+
+  const addTask = useTodoStore((state) => state.addTask);
+
+  const handleAddSuggestionTask = (title: string) => {
+    addTask(title, new Date().toISOString().split("T")[0]);
+  };
 
   return (
     <main className={styles.page}>
@@ -25,6 +32,10 @@ export default function TodoZustandPage() {
           </p>
         </div>
         <WeatherCard weather={weather} isLoading={isLoading} error={error} />
+        <WeatherSuggestions
+          weather={weather}
+          onAddTask={handleAddSuggestionTask}
+        />
         <ZustandTaskForm />
         <ZustandTaskList tasks={activetasks} />
         <ZustandDeleteTask tasks={deletedTasks} />
