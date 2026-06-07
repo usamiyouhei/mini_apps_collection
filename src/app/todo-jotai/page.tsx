@@ -14,6 +14,7 @@ import JotaiTaskList from "@/components/todo-jotai/JotaiTaskList";
 import JotaiDeletedTaskList from "@/components/todo-jotai/JotaiDeletedTaskList";
 import WeatherCard from "@/components/weather/WeatherCard";
 import useWeather from "@/hooks/useWeather";
+import WeatherSuggestions from "@/components/weather/WeatherSuggestions";
 
 export default function TodoJotaiPage() {
   const [activeTasks] = useAtom(activeJotaiTasksAtom);
@@ -40,7 +41,10 @@ export default function TodoJotaiPage() {
         </div>
 
         <WeatherCard weather={weather} isLoading={isLoading} error={error} />
-
+        <WeatherSuggestions
+          weather={weather}
+          onAddTask={handleAddSuggestionTask}
+        />
         <div className={styles.summary}>
           <p>未完了タスク</p>
           <strong>{incompleteCount}</strong>
