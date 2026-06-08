@@ -15,6 +15,7 @@ export function Header() {
         <Link href="/weather">Weather</Link>
         <Link href="/calculater">Calculater</Link>
         <Link href="/english">English</Link>
+        <Link href="/dessert-idea-builder">Dessert Idea Builder</Link>
       </nav>
     </header>
   );
