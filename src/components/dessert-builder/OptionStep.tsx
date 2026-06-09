@@ -22,7 +22,22 @@ export default function OptionStep({
         複数選択できます。選ばずに進むこともできます。
       </p>
 
-      <div className={styles.optionList}></div>
+      <div className={styles.optionList}>
+        {options.map((option) => {
+          const isSelected = selectedValues.includes(option);
+          return (
+            <button
+              key={option}
+              type="button"
+              onClick={() => onToggle(option)}
+              className={`${styles.optionButton} ${isSelected ? styles.selected : ""}`}
+            >
+              {isSelected && <span>✓</span>}
+              <span>{option}</span>
+            </button>
+          );
+        })}
+      </div>
     </section>
   );
 }
