@@ -1,5 +1,28 @@
 import React from "react";
+import styles from "./OptionStep.module.scss";
 
-export default function OptionStep() {
-  return <div></div>;
+type OptionStepProps = {
+  title: string;
+  options: string[];
+  selectedValues: string[];
+  onToggle: (value: string) => void;
+};
+
+export default function OptionStep({
+  title,
+  options,
+  selectedValues,
+  onToggle,
+}: OptionStepProps) {
+  return (
+    <section className={styles.step}>
+      <h2 className={styles.title}>{title}</h2>
+
+      <p className={styles.description}>
+        複数選択できます。選ばずに進むこともできます。
+      </p>
+
+      <div className={styles.optionList}></div>
+    </section>
+  );
 }
