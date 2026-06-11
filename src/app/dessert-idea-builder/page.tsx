@@ -18,25 +18,49 @@ export default function DessertBuilderPage() {
   const [selectedTemperatures, setSelectedTemperatures] = useState<string[]>(
     [],
   );
-  const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
 
-  const [savedIdeas, setSavedIdeas] = useState<DessertIdea[]>([]);
+  const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
 
   const isResultIdea = step >= TOTAL_STEPS;
 
-  useEffect(() => {
+  //画面を開いた瞬間に、localStorage に保存されているデザート案を読み込んで、savedIdeas の初期値にする処理
+  const [savedIdeas, setSavedIdeas] = useState<DessertIdea[]>(() => {
+    if (typeof window === "undefined") return [];
     const saved = localStorage.getItem(STORAGE_KEY);
 
-    if (!saved) return;
+    if (!saved) return [];
 
     try {
-      const parsedIdeas: DessertIdea[] = JSON.parse(saved);
-      setSavedIdeas(parsedIdeas);
+      return JSON.parse(saved) as DessertIdea[];
     } catch {
       localStorage.removeItem(STORAGE_KEY);
+      return [];
     }
-  }, []);
+  });
 
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(savedIdeas));
+  }, [savedIdeas]);
+
+  const toggleOption = (
+    value: string,
+    selectedValues: string[],
+    setSelectedValues: React.Dispatch<React.SetStateAction<string[]>>,
+  ) => {
+    if (selectedValues.includes(value)) {
+      setSelectedValues(selectedValues.filter((item) => item !== value));
+    } else {
+      setSelectedValues([...selectedValues, value]);
+    }
+  };
+
+  const goNext = () => {
+    setStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
+  };
+
+  const goBack = () => {
+    setStep((prev) => Math.max(prev - 1, 0));
+  };
   return (
     <main className={styles.page}>
       <section className={styles.builder}>
