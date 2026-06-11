@@ -3,6 +3,9 @@ import { useEffect, useState } from "react";
 import styles from "./dessert-idea-builder.module.scss";
 
 import type { DessertIdea } from "@/types/dessert";
+import DessertTypeStep from "@/components/dessert-builder/DessertTypeStep";
+import FlavorStep from "@/components/dessert-builder/FlavorStep";
+import ResultCard from "@/components/dessert-builder/ResultCard";
 
 const STORAGE_KEY = "dessert-ideas";
 const TOTAL_STEPS = 5;
@@ -21,7 +24,7 @@ export default function DessertBuilderPage() {
 
   const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
 
-  const isResultIdea = step >= TOTAL_STEPS;
+  const isResultStep = step >= TOTAL_STEPS;
 
   //画面を開いた瞬間に、localStorage に保存されているデザート案を読み込んで、savedIdeas の初期値にする処理
   const [savedIdeas, setSavedIdeas] = useState<DessertIdea[]>(() => {
@@ -71,6 +74,51 @@ export default function DessertBuilderPage() {
             種類・味・食感・温度感・飾りを自由に組み合わせてデザート案を作成します。
           </p>
         </div>
+
+        {!isResultStep && (
+          <p className={styles.stepText}>
+            Step {step + 1} / {TOTAL_STEPS}
+          </p>
+        )}
+        {!isResultStep && step === 0 && (
+          <DessertTypeStep
+            selectedValues={selectedDessertTypes}
+            onToggle={(value) =>
+              toggleOption(value, selectedDessertTypes, setSelectedDessertTypes)
+            }
+          />
+        )}
+        {!isResultStep && step === 1 && (
+          <FlavorStep
+            selectedValues={selectedFlavors}
+            onToggle={(value) =>
+              toggleOption(value, selectedFlavors, setSelectedFlavors)
+            }
+          />
+        )}
+
+        {!isResultStep ? (
+          <div className={styles.actions}>
+            <button
+              type="button"
+              onClick={goBack}
+              disabled={step === 0}
+              className={styles.secondaryButton}
+            >
+              戻る
+            </button>
+
+            <button
+              type="button"
+              onClick={goNext}
+              className={styles.primaryButton}
+            >
+              次へ / スキップ
+            </button>
+          </div>
+        ) : (
+          <ResultCard />
+        )}
       </section>
     </main>
   );
