@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "./dessert-idea-builder.module.scss";
 
 import type { DessertIdea } from "@/types/dessert";
@@ -19,6 +19,23 @@ export default function DessertBuilderPage() {
     [],
   );
   const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
+
+  const [savedIdeas, setSavedIdeas] = useState<DessertIdea[]>([]);
+
+  const isResultIdea = step >= TOTAL_STEPS;
+
+  useEffect(() => {
+    const saved = localStorage.getItem(STORAGE_KEY);
+
+    if (!saved) return;
+
+    try {
+      const parsedIdeas: DessertIdea[] = JSON.parse(saved);
+      setSavedIdeas(parsedIdeas);
+    } catch {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+  }, []);
 
   return (
     <main className={styles.page}>
