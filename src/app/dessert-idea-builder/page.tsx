@@ -3,6 +3,12 @@ import { useEffect, useState } from "react";
 import styles from "./dessert-idea-builder.module.scss";
 
 import type { DessertIdea } from "@/types/dessert";
+import DessertTypeStep from "@/components/dessert-builder/DessertTypeStep";
+import FlavorStep from "@/components/dessert-builder/FlavorStep";
+import ResultCard from "@/components/dessert-builder/ResultCard";
+import TextureStep from "@/components/dessert-builder/TextureStep";
+import TemperatureStep from "@/components/dessert-builder/TemperatureStep";
+import DecorationStep from "@/components/dessert-builder/DecorationStep";
 
 const STORAGE_KEY = "dessert-ideas";
 const TOTAL_STEPS = 5;
@@ -21,7 +27,7 @@ export default function DessertBuilderPage() {
 
   const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
 
-  const isResultIdea = step >= TOTAL_STEPS;
+  const isResultStep = step >= TOTAL_STEPS;
 
   //画面を開いた瞬間に、localStorage に保存されているデザート案を読み込んで、savedIdeas の初期値にする処理
   const [savedIdeas, setSavedIdeas] = useState<DessertIdea[]>(() => {
@@ -61,6 +67,29 @@ export default function DessertBuilderPage() {
   const goBack = () => {
     setStep((prev) => Math.max(prev - 1, 0));
   };
+
+  const resetSelections = () => {
+    setSelectedDessertTypes([]);
+    setSelectedFlavors([]);
+    setSelectedTextures([]);
+    setSelectedTemperatures([]);
+    setSelectedDecorations([]);
+    setStep(0);
+  };
+
+  const handleSaveIdea = () => {
+    const newIdea: DessertIdea = {
+      id: crypto.randomUUID(),
+      dessertTypes: selectedDessertTypes,
+      flavors: selectedFlavors,
+      textures: selectedTextures,
+      temperatures: selectedTemperatures,
+      decorations: selectedDecorations,
+      createdAt: new Date().toISOString(),
+    };
+    setSavedIdeas((prev) => [newIdea, ...prev]);
+    resetSelections();
+  };
   return (
     <main className={styles.page}>
       <section className={styles.builder}>
@@ -71,6 +100,89 @@ export default function DessertBuilderPage() {
             種類・味・食感・温度感・飾りを自由に組み合わせてデザート案を作成します。
           </p>
         </div>
+
+        {!isResultStep && (
+          <p className={styles.stepText}>
+            Step {step + 1} / {TOTAL_STEPS}
+          </p>
+        )}
+
+        {!isResultStep && step === 0 && (
+          <DessertTypeStep
+            selectedValues={selectedDessertTypes}
+            onToggle={(value) =>
+              toggleOption(value, selectedDessertTypes, setSelectedDessertTypes)
+            }
+          />
+        )}
+
+        {!isResultStep && step === 1 && (
+          <FlavorStep
+            selectedValues={selectedFlavors}
+            onToggle={(value) =>
+              toggleOption(value, selectedFlavors, setSelectedFlavors)
+            }
+          />
+        )}
+
+        {!isResultStep && step === 2 && (
+          <TextureStep
+            selectedValues={selectedTextures}
+            onToggle={(value) =>
+              toggleOption(value, selectedTextures, setSelectedTextures)
+            }
+          />
+        )}
+
+        {!isResultStep && step === 3 && (
+          <TemperatureStep
+            selectedValues={selectedTemperatures}
+            onToggle={(value) =>
+              toggleOption(value, selectedTemperatures, setSelectedTemperatures)
+            }
+          />
+        )}
+
+        {!isResultStep && step === 4 && (
+          <DecorationStep
+            selectedValues={selectedDecorations}
+            onToggle={(value) => {
+              toggleOption(value, selectedDecorations, setSelectedDecorations);
+            }}
+          />
+        )}
+
+        {!isResultStep ? (
+          <div className={styles.actions}>
+            <button
+              type="button"
+              onClick={goBack}
+              disabled={step === 0}
+              className={styles.secondaryButton}
+            >
+              戻る
+            </button>
+
+            <button
+              type="button"
+              onClick={goNext}
+              className={styles.primaryButton}
+            >
+              次へ / スキップ
+            </button>
+          </div>
+        ) : (
+          <ResultCard
+            dessertTypes={selectedDessertTypes}
+            flavors={selectedFlavors}
+            textures={selectedTextures}
+            temperatures={selectedTemperatures}
+            decorations={selectedDecorations}
+            onBack={goBack}
+            onReset={resetSelections}
+            onSave={handleSaveIdea}
+          />
+        )}
       </section>
     </main>
   );
