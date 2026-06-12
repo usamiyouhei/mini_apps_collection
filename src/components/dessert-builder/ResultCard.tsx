@@ -68,7 +68,7 @@ export default function ResultCard({
         </div>
       </div>
 
-      <div className={styles.action}>
+      <div className={styles.actions}>
         <button
           type="button"
           onClick={onBack}

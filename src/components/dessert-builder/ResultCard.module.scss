@@ -10,3 +10,89 @@
   letter-spacing: 0.08em;
   text-transform: uppercase;
 }
+
+.title {
+  margin-bottom: 20px;
+  color: #1f2937;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.card {
+  display: grid;
+  gap: 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 20px;
+  padding: 24px;
+  background-color: #fff;
+  box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.row {
+  display: grid;
+  gap: 6px;
+  border-bottom: 1px solid #f3f4f6;
+  padding-bottom: 12px;
+}
+
+.row p {
+  margin: 0;
+  color: #374151;
+  line-height: 1.7;
+}
+
+.category {
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.ideaText {
+  display: grid;
+  gap: 8px;
+  margin-top: 6px;
+  border-radius: 14px;
+  padding: 16px;
+  background: #fffbeb;
+}
+
+.ideaText p {
+  margin: 0;
+  color: #374151;
+  line-height: 1.8;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.primaryButton,
+.secondaryButton {
+  border: none;
+  border-radius: 999px;
+  padding: 11px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.primaryButton {
+  background: #c9a227;
+  color: #fff;
+}
+
+.secondaryButton {
+  border: 1px solid #d1d5db;
+  background: #fff;
+  color: #374151;
+}
+
+.primaryButton:hover {
+  opacity: 0.9;
+}
+.secondaryButton:hover {
+  background: #f9fafb;
+}
