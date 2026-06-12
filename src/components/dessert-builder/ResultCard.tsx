@@ -22,8 +22,8 @@ export default function ResultCard({
   temperatures,
   decorations,
   onBack,
-  onSave,
   onReset,
+  onSave,
 }: ResultCardProps) {
   return (
     <section className={styles.result}>
@@ -66,6 +66,28 @@ export default function ResultCard({
             を使用します。
           </p>
         </div>
+      </div>
+
+      <div className={styles.action}>
+        <button
+          type="button"
+          onClick={onBack}
+          className={styles.secondaryButton}
+        >
+          戻る
+        </button>
+
+        <button
+          type="button"
+          onClick={onReset}
+          className={styles.secondaryButton}
+        >
+          最初から
+        </button>
+
+        <button type="button" onClick={onSave} className={styles.primaryButton}>
+          保存する
+        </button>
       </div>
     </section>
   );
