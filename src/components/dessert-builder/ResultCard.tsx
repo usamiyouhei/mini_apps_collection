@@ -1,4 +1,6 @@
 import React from "react";
+import styles from "./ResultCard.module.scss";
+
 type ResultCardProps = {
   dessertTypes: string[];
   flavors: string[];
@@ -23,5 +25,22 @@ export default function ResultCard({
   onSave,
   onReset,
 }: ResultCardProps) {
-  return <div></div>;
+  return (
+    <section className={styles.result}>
+      <p className={styles.label}>Result</p>
+      <h2 className={styles.title}>デザートアイデア</h2>
+
+      <div className={styles.card}>
+        <div className={styles.row}>
+          <span className={styles.category}>種類</span>
+          <p>{formatItems(dessertTypes)}</p>
+        </div>
+
+        <div className={styles.row}>
+          <span className={styles.category}>味の構成</span>
+          <p>{formatItems(flavors)}</p>
+        </div>
+      </div>
+    </section>
+  );
 }

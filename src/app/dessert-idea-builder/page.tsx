@@ -6,6 +6,9 @@ import type { DessertIdea } from "@/types/dessert";
 import DessertTypeStep from "@/components/dessert-builder/DessertTypeStep";
 import FlavorStep from "@/components/dessert-builder/FlavorStep";
 import ResultCard from "@/components/dessert-builder/ResultCard";
+import TextureStep from "@/components/dessert-builder/TextureStep";
+import TemperatureStep from "@/components/dessert-builder/TemperatureStep";
+import DecorationStep from "@/components/dessert-builder/DecorationStep";
 
 const STORAGE_KEY = "dessert-ideas";
 const TOTAL_STEPS = 5;
@@ -64,6 +67,29 @@ export default function DessertBuilderPage() {
   const goBack = () => {
     setStep((prev) => Math.max(prev - 1, 0));
   };
+
+  const resetSelections = () => {
+    setSelectedDessertTypes([]);
+    setSelectedFlavors([]);
+    setSelectedTextures([]);
+    setSelectedTemperatures([]);
+    setSelectedDecorations([]);
+    setStep(0);
+  };
+
+  const handleSaveIdea = () => {
+    const newIdea: DessertIdea = {
+      id: crypto.randomUUID(),
+      dessertTypes: selectedDessertTypes,
+      flavors: selectedFlavors,
+      textures: selectedTextures,
+      temperatures: selectedTemperatures,
+      decorations: selectedDecorations,
+      createdAt: new Date().toISOString(),
+    };
+    setSavedIdeas((prev) => [newIdea, ...prev]);
+    resetSelections();
+  };
   return (
     <main className={styles.page}>
       <section className={styles.builder}>
@@ -80,6 +106,7 @@ export default function DessertBuilderPage() {
             Step {step + 1} / {TOTAL_STEPS}
           </p>
         )}
+
         {!isResultStep && step === 0 && (
           <DessertTypeStep
             selectedValues={selectedDessertTypes}
@@ -88,12 +115,40 @@ export default function DessertBuilderPage() {
             }
           />
         )}
+
         {!isResultStep && step === 1 && (
           <FlavorStep
             selectedValues={selectedFlavors}
             onToggle={(value) =>
               toggleOption(value, selectedFlavors, setSelectedFlavors)
             }
+          />
+        )}
+
+        {!isResultStep && step === 2 && (
+          <TextureStep
+            selectedValues={selectedTextures}
+            onToggle={(value) =>
+              toggleOption(value, selectedTextures, setSelectedTextures)
+            }
+          />
+        )}
+
+        {!isResultStep && step === 3 && (
+          <TemperatureStep
+            selectedValues={selectedTemperatures}
+            onToggle={(value) =>
+              toggleOption(value, selectedTemperatures, setSelectedTemperatures)
+            }
+          />
+        )}
+
+        {!isResultStep && step === 4 && (
+          <DecorationStep
+            selectedValues={selectedDecorations}
+            onToggle={(value) => {
+              toggleOption(value, selectedDecorations, setSelectedDecorations);
+            }}
           />
         )}
 
@@ -117,7 +172,16 @@ export default function DessertBuilderPage() {
             </button>
           </div>
         ) : (
-          <ResultCard />
+          <ResultCard
+            dessertTypes={selectedDessertTypes}
+            flavors={selectedFlavors}
+            textures={selectedTextures}
+            temperatures={selectedTemperatures}
+            decorations={selectedDecorations}
+            onBack={goBack}
+            onReset={resetSelections}
+            onSave={handleSaveIdea}
+          />
         )}
       </section>
     </main>
