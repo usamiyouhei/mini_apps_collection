@@ -9,6 +9,7 @@ import ResultCard from "@/components/dessert-builder/ResultCard";
 import TextureStep from "@/components/dessert-builder/TextureStep";
 import TemperatureStep from "@/components/dessert-builder/TemperatureStep";
 import DecorationStep from "@/components/dessert-builder/DecorationStep";
+import SavedIdeaList from "@/components/dessert-builder/SavedIdeaList";
 
 const STORAGE_KEY = "dessert-ideas";
 const TOTAL_STEPS = 5;
@@ -183,6 +184,8 @@ export default function DessertBuilderPage() {
             onSave={handleSaveIdea}
           />
         )}
+
+        <SavedIdeaList />
       </section>
     </main>
   );
