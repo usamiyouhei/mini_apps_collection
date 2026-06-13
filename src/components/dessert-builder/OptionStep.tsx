@@ -3,6 +3,7 @@ import styles from "./OptionStep.module.scss";
 
 type OptionStepProps = {
   title: string;
+  description?: string;
   options: string[];
   selectedValues: string[];
   onToggle: (value: string) => void;
@@ -10,17 +11,17 @@ type OptionStepProps = {
 
 export default function OptionStep({
   title,
+  description = "複数選択できます。選ばずに進むこともできます。",
   options,
   selectedValues,
   onToggle,
 }: OptionStepProps) {
   return (
     <section className={styles.step}>
-      <h2 className={styles.title}>{title}</h2>
-
-      <p className={styles.description}>
-        複数選択できます。選ばずに進むこともできます。
-      </p>
+      <div className={styles.header}>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.description}>{description}</p>
+      </div>
 
       <div className={styles.optionList}>
         {options.map((option) => {
@@ -32,7 +33,7 @@ export default function OptionStep({
               onClick={() => onToggle(option)}
               className={`${styles.optionButton} ${isSelected ? styles.selected : ""}`}
             >
-              {isSelected && <span>✓</span>}
+              <span className={styles.check}>{isSelected ? "✓" : ""}</span>
               <span>{option}</span>
             </button>
           );
