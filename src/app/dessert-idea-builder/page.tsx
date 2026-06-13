@@ -25,7 +25,6 @@ export default function DessertBuilderPage() {
   const [selectedTemperatures, setSelectedTemperatures] = useState<string[]>(
     [],
   );
-
   const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
 
   const isResultStep = step >= TOTAL_STEPS;
@@ -90,6 +89,10 @@ export default function DessertBuilderPage() {
     };
     setSavedIdeas((prev) => [newIdea, ...prev]);
     resetSelections();
+  };
+
+  const handleDeleteIdea = (id: string) => {
+    setSavedIdeas((prev) => prev.filter((idea) => idea.id !== id));
   };
   return (
     <main className={styles.page}>
@@ -185,7 +188,7 @@ export default function DessertBuilderPage() {
           />
         )}
 
-        <SavedIdeaList />
+        <SavedIdeaList ideas={savedIdeas} onDelete={handleDeleteIdea} />
       </section>
     </main>
   );

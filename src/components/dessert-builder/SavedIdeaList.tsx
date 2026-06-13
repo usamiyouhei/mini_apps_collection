@@ -22,5 +22,14 @@ const formatDate = (isoString: string) => {
 };
 
 export default function SavedIdeaList({ ideas, onDelete }: SavedIdeaListProps) {
-  return <div></div>;
+  if (ideas.length === 0) {
+    return (
+      <section className={styles.savedList}>
+        <h2 className={styles.title}>保存済みアイデア</h2>
+        <p className={styles.empty}>まだ保存されたアイデアはありません。</p>
+      </section>
+    );
+  }
+  return;
+  <section></section>;
 }
