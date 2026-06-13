@@ -18,9 +18,10 @@ export default function OptionStep({
 }: OptionStepProps) {
   return (
     <section className={styles.step}>
-      <h2 className={styles.title}>{title}</h2>
-
-      <p className={styles.description}>{description}</p>
+      <div className={styles.header}>
+        <h2 className={styles.title}>{title}</h2>
+        <p className={styles.description}>{description}</p>
+      </div>
 
       <div className={styles.optionList}>
         {options.map((option) => {
