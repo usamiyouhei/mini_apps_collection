@@ -1,0 +1,54 @@
+.savedList {
+  width: 100%;
+  max-width: 920px;
+  margin: 32px auto 0;
+}
+
+.title {
+  margin-bottom: 16px;
+  color: #1f2937;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.empty {
+  border: 1px dashed #d1d5db;
+  padding: 24px;
+  background: #fff;
+  color: #6b7280;
+  text-align: center;
+}
+
+.list {
+  display: grid;
+  gap: 16px;
+}
+
+.card {
+  border: 1px solid #e5e7eb;
+  border-radius: 18px;
+  padding: 20px;
+  background: #fff;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.06);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.date {
+  margin: 0 0 6px;
+  color: #9ca3af;
+  font-size: 12px;
+}
+
+.cardTitle {
+  margin: 0;
+  color: #111827;
+  font-size: 20px;
+  font-weight: 700;
+}

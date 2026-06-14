@@ -39,8 +39,10 @@ export default function SavedIdeaList({ ideas, onDelete }: SavedIdeaListProps) {
           <article key={idea.id} className={styles.card}>
             <div className={styles.cardHeader}>
               <div>
-                <p>{formatDate(idea.createdAt)}</p>
-                <h3>{formatItems(idea.dessertTypes)}</h3>
+                <p className={styles.date}>{formatDate(idea.createdAt)}</p>
+                <h3 className={styles.cardTitle}>
+                  {formatItems(idea.dessertTypes)}
+                </h3>
               </div>
 
               <button type="button" onClick={() => onDelete(idea.id)}>
