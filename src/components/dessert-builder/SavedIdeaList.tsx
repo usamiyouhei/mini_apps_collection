@@ -30,6 +30,48 @@ export default function SavedIdeaList({ ideas, onDelete }: SavedIdeaListProps) {
       </section>
     );
   }
-  return;
-  <section></section>;
+  return (
+    <section className={styles.savedIdea}>
+      <h2 className={styles.title}>保存済みアイデア</h2>
+
+      <div className={styles.list}>
+        {ideas.map((idea) => (
+          <article key={idea.id} className={styles.card}>
+            <div className={styles.cardHeader}>
+              <div>
+                <p>{formatDate(idea.createdAt)}</p>
+                <h3>{formatItems(idea.dessertTypes)}</h3>
+              </div>
+
+              <button type="button" onClick={() => onDelete(idea.id)}>
+                削除
+              </button>
+            </div>
+
+            <div className={styles.content}>
+              <div className={styles.item}>
+                <span>味</span>
+                <p>{formatItems(idea.flavors)}</p>
+              </div>
+
+              <div className={styles.item}>
+                <span>食感</span>
+                <p>{formatItems(idea.textures)}</p>
+              </div>
+
+              <div className={styles.item}>
+                <span>温度感</span>
+                <p>{formatItems(idea.temperatures)}</p>
+              </div>
+
+              <div>
+                <span>飾り</span>
+                <p>{formatItems(idea.decorations)}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
 }
