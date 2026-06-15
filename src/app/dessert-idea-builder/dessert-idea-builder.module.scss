@@ -66,4 +66,71 @@
 .secondaryButton {
   min-width: 120px;
   border-radius: 999px;
+  padding: 12px 18px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease,
+    opacity 0.2s ease;
+
+  &:hover:not(:disabled) {
+    transform: translateY(-1px);
+  }
+
+  &:focus-visible {
+    outline: 3px solid rgba(201, 162, 39, 0.25);
+    outline-offset: 3px;
+  }
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.45;
+  }
+}
+
+.primaryButton {
+  border: 1px solid #c9a227;
+  background: #c9a227;
+  color: #ffffff;
+  box-shadow: 0 12px 24px rgba(201, 162, 39, 0.25);
+  &:hover:not(:disabled) {
+    background: #b8921f;
+  }
+}
+
+.secondaryButton {
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: #374151;
+  &:hover:not(:disabled) {
+    background: #f9fafb;
+    box-shadow: 0 10px 20px rgba(15, 23, 42, 0.06);
+  }
+}
+
+@media (max-width: 640px) {
+  .page {
+    padding: 32px 14px;
+  }
+
+  .builder {
+    border-radius: 22px;
+
+    padding: 22px;
+  }
+
+  .header {
+    margin-bottom: 24px;
+  }
+
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
 }
