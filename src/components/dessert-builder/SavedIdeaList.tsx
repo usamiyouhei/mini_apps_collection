@@ -45,7 +45,11 @@ export default function SavedIdeaList({ ideas, onDelete }: SavedIdeaListProps) {
                 </h3>
               </div>
 
-              <button type="button" onClick={() => onDelete(idea.id)}>
+              <button
+                type="button"
+                onClick={() => onDelete(idea.id)}
+                className={styles.deleteButton}
+              >
                 削除
               </button>
             </div>
@@ -66,7 +70,7 @@ export default function SavedIdeaList({ ideas, onDelete }: SavedIdeaListProps) {
                 <p>{formatItems(idea.temperatures)}</p>
               </div>
 
-              <div>
+              <div className={styles.item}>
                 <span>飾り</span>
                 <p>{formatItems(idea.decorations)}</p>
               </div>
