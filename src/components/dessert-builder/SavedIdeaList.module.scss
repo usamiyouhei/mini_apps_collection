@@ -52,3 +52,54 @@
   font-size: 20px;
   font-weight: 700;
 }
+
+.deleteButton {
+  border: 1px solid #fecaca;
+  border-radius: 999px;
+  padding: 8px 12px;
+  background: #fff1f2;
+  color: #dc2626;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+
+  &:hover {
+    background: #ffe4e6;
+  }
+}
+
+.content {
+  display: grid;
+  padding-top: 10px;
+}
+
+.item {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 16px;
+}
+
+.item span {
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.item p {
+  margin: 0;
+  color: #374151;
+  line-height: 1.6;
+}
+
+@media (max-width: 640px) {
+  .cardHeader {
+    flex-direction: column;
+  }
+
+  .item {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
+}
