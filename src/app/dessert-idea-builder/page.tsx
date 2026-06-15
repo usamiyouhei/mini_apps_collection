@@ -94,6 +94,17 @@ export default function DessertBuilderPage() {
   const handleDeleteIdea = (id: string) => {
     setSavedIdeas((prev) => prev.filter((idea) => idea.id !== id));
   };
+
+  // Update
+
+  const toggleFavorite = (id: string) => {
+    setSavedIdeas(
+      savedIdeas.map((idea) =>
+        idea.id === id ? { ...idea, favorite: !idea.favorite } : idea,
+      ),
+    );
+  };
+
   return (
     <main className={styles.page}>
       <section className={styles.builder}>
