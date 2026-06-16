@@ -5,6 +5,7 @@ export type DessertIdea = {
   textures: string[];
   temperatures: string[];
   decorations: string[];
+  favorite: boolean;
   memo?: string;
   createdAt: string;
 };
