@@ -199,7 +199,11 @@ export default function DessertBuilderPage() {
           />
         )}
 
-        <SavedIdeaList ideas={savedIdeas} onDelete={handleDeleteIdea} />
+        <SavedIdeaList
+          ideas={savedIdeas}
+          onDelete={handleDeleteIdea}
+          onToggleFavorite={toggleFavorite}
+        />
       </section>
     </main>
   );

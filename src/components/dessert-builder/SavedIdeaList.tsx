@@ -5,6 +5,7 @@ import { DessertIdea } from "@/types/dessert";
 type SavedIdeaListProps = {
   ideas: DessertIdea[];
   onDelete: (title: string) => void;
+  onToggleFavorite: (id: string) => void;
 };
 
 const formatItems = (items: string[]) => {
@@ -21,7 +22,11 @@ const formatDate = (isoString: string) => {
   }).format(new Date(isoString));
 };
 
-export default function SavedIdeaList({ ideas, onDelete }: SavedIdeaListProps) {
+export default function SavedIdeaList({
+  ideas,
+  onDelete,
+  onToggleFavorite,
+}: SavedIdeaListProps) {
   if (ideas.length === 0) {
     return (
       <section className={styles.savedList}>
@@ -44,6 +49,8 @@ export default function SavedIdeaList({ ideas, onDelete }: SavedIdeaListProps) {
                   {formatItems(idea.dessertTypes)}
                 </h3>
               </div>
+
+              <button type="button" onClick={() => onToggleFavorite}></button>
 
               <button
                 type="button"
