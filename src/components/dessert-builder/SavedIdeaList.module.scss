@@ -53,6 +53,26 @@
   font-weight: 700;
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.favoriteButton {
+  width: 36px;
+  height: 36px;
+  border: 1px solid #ddd;
+  border-radius: 50%;
+  background: #fff;
+  font-size: 20px;
+  cursor: pointer;
+
+  &:hover {
+    background: #f7f7f7;
+  }
+}
+
 .deleteButton {
   border: 1px solid #fecaca;
   border-radius: 999px;

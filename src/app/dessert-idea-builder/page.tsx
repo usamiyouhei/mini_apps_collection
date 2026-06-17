@@ -85,6 +85,7 @@ export default function DessertBuilderPage() {
       textures: selectedTextures,
       temperatures: selectedTemperatures,
       decorations: selectedDecorations,
+      favorite: false,
       createdAt: new Date().toISOString(),
     };
     setSavedIdeas((prev) => [newIdea, ...prev]);
