@@ -26,6 +26,7 @@ export default function DessertBuilderPage() {
     [],
   );
   const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
+  const [imageUrl, setImageUrl] = useState("");
 
   const isResultStep = step >= TOTAL_STEPS;
 
@@ -104,6 +105,14 @@ export default function DessertBuilderPage() {
         idea.id === id ? { ...idea, favorite: !idea.favorite } : idea,
       ),
     );
+  };
+
+  const formatItem = (items: string[]) => {
+    return items.length > 0 ? items.join(", ") : "not specified";
+  };
+
+  const createAiPrompt = () => {
+    return `Create a professional plated dessert concept image`;
   };
 
   return (
