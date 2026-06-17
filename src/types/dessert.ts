@@ -6,6 +6,8 @@ export type DessertIdea = {
   temperatures: string[];
   decorations: string[];
   favorite: boolean;
+  aiPrompt: string;
+  imageUrl: string;
   memo?: string;
   createdAt: string;
 };

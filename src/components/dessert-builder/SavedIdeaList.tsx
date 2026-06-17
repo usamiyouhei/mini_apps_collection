@@ -23,7 +23,7 @@ const formatDate = (isoString: string) => {
 };
 
 export default function SavedIdeaList({
-  ideas,
+  ideas = [],
   onDelete,
   onToggleFavorite,
 }: SavedIdeaListProps) {
