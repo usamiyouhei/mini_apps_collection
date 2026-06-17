@@ -50,15 +50,28 @@ export default function SavedIdeaList({
                 </h3>
               </div>
 
-              <button type="button" onClick={() => onToggleFavorite}></button>
+              <div className={styles.actions}>
+                <button
+                  type="button"
+                  onClick={() => onToggleFavorite(idea.id)}
+                  className={styles.favoriteButton}
+                  aria-label={
+                    idea.favorite
+                      ? "お気に入りに登録する"
+                      : "お気に入りに追加する"
+                  }
+                >
+                  {idea.favorite ? "★" : "⭐︎"}
+                </button>
 
-              <button
-                type="button"
-                onClick={() => onDelete(idea.id)}
-                className={styles.deleteButton}
-              >
-                削除
-              </button>
+                <button
+                  type="button"
+                  onClick={() => onDelete(idea.id)}
+                  className={styles.deleteButton}
+                >
+                  削除
+                </button>
+              </div>
             </div>
 
             <div className={styles.content}>
