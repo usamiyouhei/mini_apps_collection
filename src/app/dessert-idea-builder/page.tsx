@@ -218,6 +218,8 @@ export default function DessertBuilderPage() {
             textures={selectedTextures}
             temperatures={selectedTemperatures}
             decorations={selectedDecorations}
+            aiPrompt={createAiPrompt()}
+            imageUrl={imageUrl}
             onBack={goBack}
             onReset={resetSelections}
             onSave={handleSaveIdea}

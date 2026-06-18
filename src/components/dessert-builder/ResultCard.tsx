@@ -7,6 +7,9 @@ type ResultCardProps = {
   textures: string[];
   temperatures: string[];
   decorations: string[];
+  aiPrompt: string;
+  imageUrl: string;
+  onChangeImageUrl: (value: string) => void;
   onBack: () => void;
   onReset: () => void;
   onSave: () => void;
@@ -21,10 +24,16 @@ export default function ResultCard({
   textures,
   temperatures,
   decorations,
+  aiPrompt,
+  imageUrl,
   onBack,
   onReset,
   onSave,
 }: ResultCardProps) {
+  const copyPrompt = async () => {
+    await navigator.clipboard.writeText(aiPrompt);
+    alert("コピーしました");
+  };
   return (
     <section className={styles.result}>
       <p className={styles.label}>Result</p>
@@ -65,6 +74,17 @@ export default function ResultCard({
             {formatItems(temperatures)}、仕上げには{formatItems(decorations)}
             を使用します。
           </p>
+        </div>
+
+        <div className={styles.promptBox}>
+          <div className={styles.promptHeader}>
+            <span className={styles.category}>AI画像生成プロンプト</span>
+
+            <button type="button" onClick={copyPrompt}>
+              コピー
+            </button>
+          </div>
+          <pre>{aiPrompt}</pre>
         </div>
       </div>
 
