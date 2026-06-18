@@ -10,6 +10,7 @@ import TextureStep from "@/components/dessert-builder/TextureStep";
 import TemperatureStep from "@/components/dessert-builder/TemperatureStep";
 import DecorationStep from "@/components/dessert-builder/DecorationStep";
 import SavedIdeaList from "@/components/dessert-builder/SavedIdeaList";
+import { format } from "path";
 
 const STORAGE_KEY = "dessert-ideas";
 const TOTAL_STEPS = 5;
@@ -75,10 +76,12 @@ export default function DessertBuilderPage() {
     setSelectedTextures([]);
     setSelectedTemperatures([]);
     setSelectedDecorations([]);
+    setImageUrl("");
     setStep(0);
   };
 
   const handleSaveIdea = () => {
+    const aiPrompt = createAiPrompt();
     const newIdea: DessertIdea = {
       id: crypto.randomUUID(),
       dessertTypes: selectedDessertTypes,
@@ -87,6 +90,8 @@ export default function DessertBuilderPage() {
       temperatures: selectedTemperatures,
       decorations: selectedDecorations,
       favorite: false,
+      aiPrompt,
+      imageUrl,
       createdAt: new Date().toISOString(),
     };
     setSavedIdeas((prev) => [newIdea, ...prev]);
@@ -107,12 +112,22 @@ export default function DessertBuilderPage() {
     );
   };
 
-  const formatItem = (items: string[]) => {
+  const formatItems = (items: string[]) => {
     return items.length > 0 ? items.join(", ") : "not specified";
   };
 
   const createAiPrompt = () => {
-    return `Create a professional plated dessert concept image`;
+    return `Create a professional plated dessert concept image.
+
+    DessertType: ${formatItems(selectedDessertTypes)}
+    Flavor composition: ${formatItems(selectedFlavors)}
+    Texture: ${formatItems(selectedTextures)}
+    Temperature style: ${formatItems(selectedTemperatures)}
+    Decoration and finishing: ${formatItems(selectedDecorations)}
+
+    Style: modern fine dining dessert, elegant plating, luxury restaurant presentation, clean composition, realistic food photography, soft natural lighting, shallow depth of field, high-end pastry, white or neutral ceramic plate, minimal background.
+
+    Do not include text, labels, hands, people, logos, or packaging.`;
   };
 
   return (
