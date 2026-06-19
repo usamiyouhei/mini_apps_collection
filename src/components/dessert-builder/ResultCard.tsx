@@ -26,6 +26,7 @@ export default function ResultCard({
   decorations,
   aiPrompt,
   imageUrl,
+  onChangeImageUrl,
   onBack,
   onReset,
   onSave,
@@ -85,6 +86,29 @@ export default function ResultCard({
             </button>
           </div>
           <pre>{aiPrompt}</pre>
+        </div>
+
+        <div className={styles.imageArea}>
+          <label className={styles.imageLabel} htmlFor="imageUrl">
+            AIで生成した画像URL
+          </label>
+
+          <input
+            id={imageUrl}
+            type="url"
+            value={imageUrl}
+            onChange={(e) => onChangeImageUrl(e.target.value)}
+            placeholder="https://example.com/dessert-image.jpg"
+            className={styles.imageInput}
+          />
+
+          <div>
+            {imageUrl ? (
+              <img src={imageUrl} alt="AI生成デザート動画" />
+            ) : (
+              <p>AIで生成した画像URLを貼ると、ここにプレビューされます。</p>
+            )}
+          </div>
         </div>
       </div>
 
