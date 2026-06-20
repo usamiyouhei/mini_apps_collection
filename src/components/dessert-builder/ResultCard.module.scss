@@ -138,6 +138,25 @@
   display: grid;
   place-items: center;
   min-height: 220px;
+  overflow: hidden;
+  border: 1px dashed #d1d5db;
+  border-radius: 18px;
+  background: #f9fafb;
+
+  p {
+    margin: 0;
+    padding: 20px;
+    color: #9ca3af;
+    font-size: 14px;
+    text-align: center;
+  }
+
+  img {
+    width: 100px;
+    max-height: 420px;
+    object-fit: cover;
+    display: block;
+  }
 }
 .actions {
   display: flex;
