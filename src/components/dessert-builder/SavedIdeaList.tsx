@@ -74,6 +74,12 @@ export default function SavedIdeaList({
               </div>
             </div>
 
+            {idea.imageUrl && (
+              <div className={styles.imageWrap}>
+                <img src={idea.imageUrl} alt="保存されたAI生成デザート画像" />
+              </div>
+            )}
+
             <div className={styles.content}>
               <div className={styles.item}>
                 <span>味</span>
@@ -94,6 +100,11 @@ export default function SavedIdeaList({
                 <span>飾り</span>
                 <p>{formatItems(idea.decorations)}</p>
               </div>
+            </div>
+
+            <div className={styles.promptWrap}>
+              <span>AIプロンプト</span>
+              <pre>{idea.aiPrompt}</pre>
             </div>
           </article>
         ))}
