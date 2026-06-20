@@ -62,6 +62,83 @@
   line-height: 1.8;
 }
 
+.promptBox {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+  border-radius: 16px;
+  background: #111827;
+}
+
+.promptHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  .category {
+    color: #facc15;
+  }
+}
+
+.copyButton {
+  border: 1px solid rgba(250, 204, 21, 0.45);
+  border-radius: 999px;
+  padding: 7px 12px;
+  font-size: 12px;
+  font-weight: 800;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(250, 204, 21, 0.2);
+  }
+}
+
+.prompt {
+  max-height: 260px;
+  margin: 0;
+  overflow: auto;
+  white-space: pre-wrap;
+  color: #f9fafb;
+  font-family:
+    ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+    "Courier New", monospace;
+  font-size: 13px;
+  line-height: 1.7;
+}
+
+.imageArea {
+  display: grid;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.imageLabel {
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.imageInput {
+  width: 100%;
+  border: 1px solid #d1d5db;
+  border-radius: 14px;
+  padding: 12px 14px;
+  background: #fff;
+  color: #374151;
+  font-size: 14px;
+
+  &:focus {
+    border-color: #c9a227;
+    outline: 3px solid rgba(201, 162, 39, 0.18);
+  }
+}
+
+.preview {
+  display: grid;
+  place-items: center;
+  min-height: 220px;
+}
 .actions {
   display: flex;
   flex-wrap: wrap;
