@@ -81,11 +81,15 @@ export default function ResultCard({
           <div className={styles.promptHeader}>
             <span className={styles.category}>AI画像生成プロンプト</span>
 
-            <button type="button" onClick={copyPrompt}>
+            <button
+              type="button"
+              onClick={copyPrompt}
+              className={styles.copyButton}
+            >
               コピー
             </button>
           </div>
-          <pre>{aiPrompt}</pre>
+          <pre className={styles.prompt}>{aiPrompt}</pre>
         </div>
 
         <div className={styles.imageArea}>
