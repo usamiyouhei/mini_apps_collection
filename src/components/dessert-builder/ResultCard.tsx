@@ -106,7 +106,7 @@ export default function ResultCard({
             className={styles.imageInput}
           />
 
-          <div>
+          <div className={styles.preview}>
             {imageUrl ? (
               <img src={imageUrl} alt="AI生成デザート動画" />
             ) : (
