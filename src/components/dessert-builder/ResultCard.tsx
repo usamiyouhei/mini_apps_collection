@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef, useState } from "react";
 import styles from "./ResultCard.module.scss";
 
 type ResultCardProps = {
@@ -9,7 +9,9 @@ type ResultCardProps = {
   decorations: string[];
   aiPrompt: string;
   imageUrl: string;
+  imageFileDataUrl: string;
   onChangeImageUrl: (value: string) => void;
+  onChangeImageFileDataUrl: (value: string) => void;
   onBack: () => void;
   onReset: () => void;
   onSave: () => void;
@@ -26,15 +28,42 @@ export default function ResultCard({
   decorations,
   aiPrompt,
   imageUrl,
+  imageFileDataUrl,
   onChangeImageUrl,
+  onChangeImageFileDataUrl,
   onBack,
   onReset,
   onSave,
 }: ResultCardProps) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const previewSrc = imageFileDataUrl || imageUrl;
+
   const copyPrompt = async () => {
     await navigator.clipboard.writeText(aiPrompt);
     alert("コピーしました");
   };
+
+  const convertFileToDataUrl = (file: File) => {
+    if (!file.type.startsWith("image/")) {
+      alert("画像ファイルを選択してください。");
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onload = () => {
+      const result = reader.result;
+
+      if (typeof result === "string") {
+        onChangeImageFileDataUrl(result);
+        onChangeImageUrl("");
+      }
+    };
+
+    reader.readAsDataURL(file);
+  };
+
   return (
     <section className={styles.result}>
       <p className={styles.label}>Result</p>

@@ -28,6 +28,7 @@ export default function DessertBuilderPage() {
   );
   const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
   const [imageUrl, setImageUrl] = useState("");
+  const [imageFileDataUrl, setImageFileDataUrl] = useState("");
 
   const isResultStep = step >= TOTAL_STEPS;
 
@@ -77,6 +78,7 @@ export default function DessertBuilderPage() {
     setSelectedTemperatures([]);
     setSelectedDecorations([]);
     setImageUrl("");
+    setImageFileDataUrl("");
     setStep(0);
   };
 
@@ -92,6 +94,7 @@ export default function DessertBuilderPage() {
       favorite: false,
       aiPrompt,
       imageUrl,
+      imageFileDataUrl,
       createdAt: new Date().toISOString(),
     };
     setSavedIdeas((prev) => [newIdea, ...prev]);
