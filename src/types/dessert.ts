@@ -8,6 +8,7 @@ export type DessertIdea = {
   favorite: boolean;
   aiPrompt: string;
   imageUrl: string;
+  imageFileDataUrl: string;
   memo?: string;
   createdAt: string;
 };
