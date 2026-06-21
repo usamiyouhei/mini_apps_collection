@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { ChangeEvent, DragEvent, useRef, useState } from "react";
 import styles from "./ResultCard.module.scss";
 
 type ResultCardProps = {
@@ -64,6 +64,40 @@ export default function ResultCard({
     reader.readAsDataURL(file);
   };
 
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+
+    if (!file) return;
+
+    convertFileToDataUrl(file);
+  };
+
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(false);
+
+    const file = e.dataTransfer.files?.[0];
+    if (!file) return;
+    convertFileToDataUrl(file);
+  };
+
+  const handleDraggOver = (e: DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(false);
+  };
+
+  const clearImage = () => {
+    onChangeImageUrl("");
+    onChangeImageFileDataUrl("");
+
+    if (fileInputRef.current) {
+      fileInputRef.current.value = "";
+    }
+  };
   return (
     <section className={styles.result}>
       <p className={styles.label}>Result</p>
