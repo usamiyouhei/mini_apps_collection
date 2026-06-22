@@ -223,6 +223,9 @@ export default function DessertBuilderPage() {
             decorations={selectedDecorations}
             aiPrompt={createAiPrompt()}
             imageUrl={imageUrl}
+            imageFileDataUrl={imageFileDataUrl}
+            onChangeImageUrl={setImageUrl}
+            onChangeImageFileDataUrl={setImageFileDataUrl}
             onBack={goBack}
             onReset={resetSelections}
             onSave={handleSaveIdea}

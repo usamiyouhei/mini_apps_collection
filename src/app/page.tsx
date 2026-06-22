@@ -28,6 +28,11 @@ const apps = [
     description: "英単語をカード形式で学習するアプリ",
     href: "/english",
   },
+  {
+    title: "Dessert Idea App",
+    description: "デザートのアイデアを出すアプリ",
+    href: "/dessert-idea-builder",
+  },
 ];
 
 export default function Home() {
