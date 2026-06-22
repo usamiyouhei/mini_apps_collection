@@ -164,10 +164,30 @@ export default function ResultCard({
             id={imageUrl}
             type="url"
             value={imageUrl}
-            onChange={(e) => onChangeImageUrl(e.target.value)}
+            onChange={(e) => {
+              onChangeImageUrl(e.target.value);
+              onChangeImageFileDataUrl("");
+            }}
             placeholder="https://example.com/dessert-image.jpg"
             className={styles.imageInput}
           />
+          <div
+            className={`${styles.dropZone} ${isDragging ? styles.dragging : ""}`}
+            onDrop={handleDrop}
+            onDragOver={handleDraggOver}
+            onDragLeave={handleDragLeave}
+          >
+            <input
+              ref={fileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={handleFileChange}
+              className={styles.fileInput}
+            />
+            <p className={styles.dropText}>
+              画像をクリックして選択、またはドラッグ&ドロップ
+            </p>
+          </div>
 
           <div className={styles.preview}>
             {imageUrl ? (
