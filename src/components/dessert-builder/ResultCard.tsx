@@ -161,7 +161,7 @@ export default function ResultCard({
           </label>
 
           <input
-            id={imageUrl}
+            id="imageUrl"
             type="url"
             value={imageUrl}
             onChange={(e) => {
@@ -190,12 +190,22 @@ export default function ResultCard({
           </div>
 
           <div className={styles.preview}>
-            {imageUrl ? (
-              <img src={imageUrl} alt="AI生成デザート動画" />
+            {previewSrc ? (
+              <img src={previewSrc} alt="AI生成デザート動画" />
             ) : (
               <p>AIで生成した画像URLを貼ると、ここにプレビューされます。</p>
             )}
           </div>
+
+          {previewSrc && (
+            <button
+              type="button"
+              onClick={clearImage}
+              className={styles.clearImageButton}
+            >
+              画像を削除
+            </button>
+          )}
         </div>
       </div>
 
