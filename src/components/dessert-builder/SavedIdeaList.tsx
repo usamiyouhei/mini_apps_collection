@@ -4,7 +4,7 @@ import { DessertIdea } from "@/types/dessert";
 
 type SavedIdeaListProps = {
   ideas: DessertIdea[];
-  onDelete: (title: string) => void;
+  onDelete: (id: string) => void;
   onToggleFavorite: (id: string) => void;
 };
 
@@ -76,8 +76,9 @@ export default function SavedIdeaList({
                 </div>
               </div>
 
-              {idea.imageUrl && (
+              {imageSrc && (
                 <div className={styles.imageWrap}>
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img src={idea.imageUrl} alt="保存されたAI生成デザート画像" />
                 </div>
               )}
