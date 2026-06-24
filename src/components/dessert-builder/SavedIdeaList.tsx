@@ -79,7 +79,7 @@ export default function SavedIdeaList({
               {imageSrc && (
                 <div className={styles.imageWrap}>
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={idea.imageUrl} alt="保存されたAI生成デザート画像" />
+                  <img src={imageSrc} alt="保存されたAI生成デザート画像" />
                 </div>
               )}
 
