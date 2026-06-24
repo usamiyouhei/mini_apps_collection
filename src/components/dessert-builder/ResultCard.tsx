@@ -191,7 +191,10 @@ export default function ResultCard({
 
           <div className={styles.preview}>
             {previewSrc ? (
-              <img src={previewSrc} alt="AI生成デザート動画" />
+              <>
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={previewSrc} alt="AI生成デザート画像" />
+              </>
             ) : (
               <p>AIで生成した画像URLを貼ると、ここにプレビューされます。</p>
             )}
