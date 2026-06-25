@@ -74,6 +74,7 @@ export default function ResultCard({
 
   const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
+    e.stopPropagation();
     setIsDragging(false);
 
     const file = e.dataTransfer.files?.[0];
@@ -81,7 +82,7 @@ export default function ResultCard({
     convertFileToDataUrl(file);
   };
 
-  const handleDraggOver = (e: DragEvent<HTMLDivElement>) => {
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     setIsDragging(true);
   };
@@ -155,7 +156,12 @@ export default function ResultCard({
           <pre className={styles.prompt}>{aiPrompt}</pre>
         </div>
 
-        <div className={styles.imageArea}>
+        <div
+          className={styles.imageArea}
+          onDragOver={handleDragOver}
+          onDrop={handleDrop}
+          onDragLeave={handleDragLeave}
+        >
           <label className={styles.imageLabel} htmlFor="imageUrl">
             AIで生成した画像URL
           </label>
@@ -174,7 +180,7 @@ export default function ResultCard({
           <div
             className={`${styles.dropZone} ${isDragging ? styles.dragging : ""}`}
             onDrop={handleDrop}
-            onDragOver={handleDraggOver}
+            onDragOver={handleDragOver}
             onDragLeave={handleDragLeave}
           >
             <input
