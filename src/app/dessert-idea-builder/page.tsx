@@ -11,6 +11,7 @@ import TemperatureStep from "@/components/dessert-builder/TemperatureStep";
 import DecorationStep from "@/components/dessert-builder/DecorationStep";
 import SavedIdeaList from "@/components/dessert-builder/SavedIdeaList";
 import { format } from "path";
+import ShapeStep from "@/components/dessert-builder/ShapeStep";
 
 const STORAGE_KEY = "dessert-ideas";
 const TOTAL_STEPS = 5;
@@ -22,6 +23,7 @@ export default function DessertBuilderPage() {
     [],
   );
   const [selectedFlavors, setSelectedFlavors] = useState<string[]>([]);
+  const [selectedShapes, setSelectedShapes] = useState<string[]>([]);
   const [selectedTextures, setSelectedTextures] = useState<string[]>([]);
   const [selectedTemperatures, setSelectedTemperatures] = useState<string[]>(
     [],
@@ -88,6 +90,7 @@ export default function DessertBuilderPage() {
       id: crypto.randomUUID(),
       dessertTypes: selectedDessertTypes,
       flavors: selectedFlavors,
+      shapes: selectedShapes,
       textures: selectedTextures,
       temperatures: selectedTemperatures,
       decorations: selectedDecorations,
@@ -164,6 +167,15 @@ export default function DessertBuilderPage() {
             selectedValues={selectedFlavors}
             onToggle={(value) =>
               toggleOption(value, selectedFlavors, setSelectedFlavors)
+            }
+          />
+        )}
+
+        {!isResultStep && step === 2 && (
+          <ShapeStep
+            selectedValues={selectedShapes}
+            onToggle={(value) =>
+              toggleOption(value, selectedShapes, setSelectedShapes)
             }
           />
         )}
