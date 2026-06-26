@@ -4,6 +4,7 @@ import styles from "./ResultCard.module.scss";
 type ResultCardProps = {
   dessertTypes: string[];
   flavors: string[];
+  shapes: string[];
   textures: string[];
   temperatures: string[];
   decorations: string[];
@@ -23,6 +24,7 @@ const formatItems = (items: string[]) => {
 export default function ResultCard({
   dessertTypes,
   flavors,
+  shapes,
   textures,
   temperatures,
   decorations,
@@ -113,6 +115,11 @@ export default function ResultCard({
         <div className={styles.row}>
           <span className={styles.category}>味の構成</span>
           <p>{formatItems(flavors)}</p>
+        </div>
+
+        <div className={styles.row}>
+          <span className={styles.category}>形状</span>
+          <p>{formatItems(shapes)}</p>
         </div>
 
         <div className={styles.row}>

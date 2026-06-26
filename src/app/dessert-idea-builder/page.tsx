@@ -127,6 +127,7 @@ export default function DessertBuilderPage() {
 
     DessertType: ${formatItems(selectedDessertTypes)}
     Flavor composition: ${formatItems(selectedFlavors)}
+    Shapes: ${formatItems(selectedShapes)}
     Texture: ${formatItems(selectedTextures)}
     Temperature style: ${formatItems(selectedTemperatures)}
     Decoration and finishing: ${formatItems(selectedDecorations)}
@@ -230,6 +231,7 @@ export default function DessertBuilderPage() {
           <ResultCard
             dessertTypes={selectedDessertTypes}
             flavors={selectedFlavors}
+            shapes={selectedShapes}
             textures={selectedTextures}
             temperatures={selectedTemperatures}
             decorations={selectedDecorations}
