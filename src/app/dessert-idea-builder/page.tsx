@@ -14,7 +14,7 @@ import { format } from "path";
 import ShapeStep from "@/components/dessert-builder/ShapeStep";
 
 const STORAGE_KEY = "dessert-ideas";
-const TOTAL_STEPS = 5;
+const TOTAL_STEPS = 6;
 
 export default function DessertBuilderPage() {
   const [step, setStep] = useState(0);
@@ -180,7 +180,7 @@ export default function DessertBuilderPage() {
           />
         )}
 
-        {!isResultStep && step === 2 && (
+        {!isResultStep && step === 3 && (
           <TextureStep
             selectedValues={selectedTextures}
             onToggle={(value) =>
@@ -189,7 +189,7 @@ export default function DessertBuilderPage() {
           />
         )}
 
-        {!isResultStep && step === 3 && (
+        {!isResultStep && step === 4 && (
           <TemperatureStep
             selectedValues={selectedTemperatures}
             onToggle={(value) =>
@@ -198,7 +198,7 @@ export default function DessertBuilderPage() {
           />
         )}
 
-        {!isResultStep && step === 4 && (
+        {!isResultStep && step === 5 && (
           <DecorationStep
             selectedValues={selectedDecorations}
             onToggle={(value) => {
