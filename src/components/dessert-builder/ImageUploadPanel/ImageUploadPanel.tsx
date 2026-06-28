@@ -42,6 +42,21 @@ export default function ImageUploadPanel() {
     setIsDragging(true);
   };
 
+  const handleDrop = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    setIsDragging(false);
+
+    const file = event.dataTransfer.files?.[0];
+    if (!file) return;
+
+    handleFile(file);
+  };
+
+  const clearImage = () => {
+    setImageUrl("");
+    setFilePreviewUrl("");
+  };
+
   return (
     <section className={styles.panel}>
       <div className={styles.header}>
