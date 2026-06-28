@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, DragEvent, useState } from "react";
 import styles from "./ImageUploadPanel.module.scss";
 
 export default function ImageUploadPanel() {
@@ -25,6 +25,21 @@ export default function ImageUploadPanel() {
       }
     };
     reader.readAsDataURL(file);
+  };
+
+  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+    handleFile(file);
+  };
+
+  const handleDragOver = (event: DragEvent<HTMLLabelElement>) => {
+    event.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = () => {
+    setIsDragging(true);
   };
 
   return (
