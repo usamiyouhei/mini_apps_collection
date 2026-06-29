@@ -90,8 +90,21 @@ export default function ImageUploadPanel() {
             onChange={handleFileChange}
             className={styles.fileInput}
           />
+          <span>画像を選択、またはドラッグ＆ドロップ</span>
         </label>
-        <span>画像を選択、またはドラッグ＆ドロップ</span>
+
+        {previewUrl && (
+          <div>
+            <img src={previewUrl} alt="AI生成画像プレビュー" />
+            <button
+              type="button"
+              className={styles.clearButton}
+              onClick={clearImage}
+            >
+              画像を削除
+            </button>
+          </div>
+        )}
       </div>
     </section>
   );

@@ -29,6 +29,8 @@ export default function DessertBuilderPage() {
     [],
   );
   const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
+
+  const [result, setResult] = useState<DessertIdea | null>(null);
   const [imageUrl, setImageUrl] = useState("");
   const [imageFileDataUrl, setImageFileDataUrl] = useState("");
 
@@ -82,6 +84,14 @@ export default function DessertBuilderPage() {
     setImageUrl("");
     setImageFileDataUrl("");
     setStep(0);
+  };
+
+  const saveIdea = () => {
+    if (!result) return;
+
+    const alreadySaved = savedIdeas.some((idea) => idea.id === ResultCard.id);
+    if (!alreadySaved) return;
+    setSavedIdeas((prevIdeas) => [result, ...prevIdeas]);
   };
 
   const handleSaveIdea = () => {
@@ -228,22 +238,27 @@ export default function DessertBuilderPage() {
             </button>
           </div>
         ) : (
-          <ResultCard
-            dessertTypes={selectedDessertTypes}
-            flavors={selectedFlavors}
-            shapes={selectedShapes}
-            textures={selectedTextures}
-            temperatures={selectedTemperatures}
-            decorations={selectedDecorations}
-            aiPrompt={createAiPrompt()}
-            imageUrl={imageUrl}
-            imageFileDataUrl={imageFileDataUrl}
-            onChangeImageUrl={setImageUrl}
-            onChangeImageFileDataUrl={setImageFileDataUrl}
-            onBack={goBack}
-            onReset={resetSelections}
-            onSave={handleSaveIdea}
-          />
+          result && (
+            <div>
+              <ResultCard idea={result} onSave={saveIdea} />
+            </div>
+            //   <ResultCard
+            //     dessertTypes={selectedDessertTypes}
+            //     flavors={selectedFlavors}
+            //     shapes={selectedShapes}
+            //     textures={selectedTextures}
+            //     temperatures={selectedTemperatures}
+            //     decorations={selectedDecorations}
+            //     aiPrompt={createAiPrompt()}
+            //     imageUrl={imageUrl}
+            //     imageFileDataUrl={imageFileDataUrl}
+            //     onChangeImageUrl={setImageUrl}
+            //     onChangeImageFileDataUrl={setImageFileDataUrl}
+            //     onBack={goBack}
+            //     onReset={resetSelections}
+            //     onSave={handleSaveIdea}
+            //   />
+          )
         )}
 
         <SavedIdeaList
