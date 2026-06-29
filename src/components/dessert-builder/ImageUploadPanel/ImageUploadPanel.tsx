@@ -77,6 +77,21 @@ export default function ImageUploadPanel() {
           placeholder="https://example.com/image.jpg"
           className={styles.input}
         />
+
+        <label
+          className={`${styles.dropArea} ${isDragging ? styles.dragging : ""}`}
+          onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
+          onDrop={handleDrop}
+        >
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleFileChange}
+            className={styles.fileInput}
+          />
+        </label>
+        <span>画像を選択、またはドラッグ＆ドロップ</span>
       </div>
     </section>
   );
