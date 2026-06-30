@@ -6,6 +6,10 @@ type ResultCardProps = {
   onSave: () => void;
 };
 
+const formatItems = (items: string[] | undefined) => {
+  return items && items.length > 0 ? items.join(" / ") : "指定なし";
+};
+
 export default function ResultCard({ idea, onSave }: ResultCardProps) {
   return (
     <section>
