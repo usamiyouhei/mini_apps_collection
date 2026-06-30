@@ -89,13 +89,12 @@ export default function DessertBuilderPage() {
   const saveIdea = () => {
     if (!result) return;
 
-    const alreadySaved = savedIdeas.some((idea) => idea.id === ResultCard.id);
+    const alreadySaved = savedIdeas.some((idea) => idea.id === result.id);
     if (!alreadySaved) return;
     setSavedIdeas((prevIdeas) => [result, ...prevIdeas]);
   };
 
-  const handleSaveIdea = () => {
-    const aiPrompt = createAiPrompt();
+  const createResult = () => {
     const newIdea: DessertIdea = {
       id: crypto.randomUUID(),
       dessertTypes: selectedDessertTypes,
@@ -105,9 +104,6 @@ export default function DessertBuilderPage() {
       temperatures: selectedTemperatures,
       decorations: selectedDecorations,
       favorite: false,
-      aiPrompt,
-      imageUrl,
-      imageFileDataUrl,
       createdAt: new Date().toISOString(),
     };
     setSavedIdeas((prev) => [newIdea, ...prev]);
