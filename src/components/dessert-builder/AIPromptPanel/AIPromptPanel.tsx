@@ -32,7 +32,7 @@ export default function AIPromptPanel({ prompt }: AIPromptPanelProps) {
         </button>
       </div>
 
-      {copyMessage && <p className={}>{copyMessage}</p>}
+      {copyMessage && <p className={styles.message}>{copyMessage}</p>}
     </section>
   );
 }
