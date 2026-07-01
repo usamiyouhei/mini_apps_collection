@@ -12,9 +12,11 @@ import DecorationStep from "@/components/dessert-builder/DecorationStep";
 import SavedIdeaList from "@/components/dessert-builder/SavedIdeaList";
 import { format } from "path";
 import ShapeStep from "@/components/dessert-builder/ShapeStep";
+import AIPromptPanel from "@/components/dessert-builder/AIPromptPanel/AIPromptPanel";
+import ImageUploadPanel from "@/components/dessert-builder/ImageUploadPanel/ImageUploadPanel";
 
 const STORAGE_KEY = "dessert-ideas";
-const TOTAL_STEPS = 6;
+const LAST_OPTION_STEP = 6;
 
 export default function DessertBuilderPage() {
   const [step, setStep] = useState(0);
@@ -31,10 +33,10 @@ export default function DessertBuilderPage() {
   const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
 
   const [result, setResult] = useState<DessertIdea | null>(null);
-  const [imageUrl, setImageUrl] = useState("");
-  const [imageFileDataUrl, setImageFileDataUrl] = useState("");
+  // const [imageUrl, setImageUrl] = useState("");
+  // const [imageFileDataUrl, setImageFileDataUrl] = useState("");
 
-  const isResultStep = step >= TOTAL_STEPS;
+  const isResultStep = step >= LAST_OPTION_STEP;
 
   //画面を開いた瞬間に、localStorage に保存されているデザート案を読み込んで、savedIdeas の初期値にする処理
   const [savedIdeas, setSavedIdeas] = useState<DessertIdea[]>(() => {
@@ -68,23 +70,33 @@ export default function DessertBuilderPage() {
   };
 
   const goNext = () => {
-    setStep((prev) => Math.min(prev + 1, TOTAL_STEPS));
+    setStep((prev) => Math.min(prev + 1, LAST_OPTION_STEP));
   };
 
   const goBack = () => {
     setStep((prev) => Math.max(prev - 1, 0));
   };
 
-  const resetSelections = () => {
+  const resetBuilder = () => {
+    setStep(0);
     setSelectedDessertTypes([]);
     setSelectedFlavors([]);
     setSelectedTextures([]);
-    setSelectedTemperatures([]);
+    setSelectedShapes([]);
     setSelectedDecorations([]);
-    setImageUrl("");
-    setImageFileDataUrl("");
-    setStep(0);
+    setResult(null);
   };
+
+  // const resetSelections = () => {
+  //   setSelectedDessertTypes([]);
+  //   setSelectedFlavors([]);
+  //   setSelectedTextures([]);
+  //   setSelectedTemperatures([]);
+  //   setSelectedDecorations([]);
+  //   setImageUrl("");
+  //   setImageFileDataUrl("");
+  //   setStep(0);
+  // };
 
   const saveIdea = () => {
     if (!result) return;
@@ -106,8 +118,10 @@ export default function DessertBuilderPage() {
       favorite: false,
       createdAt: new Date().toISOString(),
     };
-    setSavedIdeas((prev) => [newIdea, ...prev]);
-    resetSelections();
+    setResult(newIdea);
+    setStep(LAST_OPTION_STEP + 1);
+    // setSavedIdeas((prev) => [newIdea, ...prev]);
+    // resetSelections();
   };
 
   const handleDeleteIdea = (id: string) => {
@@ -156,7 +170,7 @@ export default function DessertBuilderPage() {
 
         {!isResultStep && (
           <p className={styles.stepText}>
-            Step {step + 1} / {TOTAL_STEPS}
+            Step {step + 1} / {LAST_OPTION_STEP}
           </p>
         )}
 
@@ -237,6 +251,18 @@ export default function DessertBuilderPage() {
           result && (
             <div>
               <ResultCard idea={result} onSave={saveIdea} />
+
+              <AIPromptPanel prompt={aiPrompt} />
+
+              <ImageUploadPanel />
+
+              <button
+                type="button"
+                className={styles.secondlyButton}
+                onClick={resetBuilder}
+              >
+                最初から作り直す
+              </button>
             </div>
             //   <ResultCard
             //     dessertTypes={selectedDessertTypes}
