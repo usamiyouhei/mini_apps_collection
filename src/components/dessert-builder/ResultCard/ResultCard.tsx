@@ -48,7 +48,7 @@ export default function ResultCard({ idea, onSave }: ResultCardProps) {
         </div>
       </div>
 
-      <button type="button" className={styles.saveButton}>
+      <button type="button" className={styles.saveButton} onClick={onSave}>
         このアイデアを保存
       </button>
     </section>

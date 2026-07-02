@@ -5,7 +5,7 @@ import styles from "./dessert-idea-builder.module.scss";
 import type { DessertIdea } from "@/types/dessert";
 import DessertTypeStep from "@/components/dessert-builder/DessertTypeStep";
 import FlavorStep from "@/components/dessert-builder/FlavorStep";
-import ResultCard from "@/components/dessert-builder/ResultCard";
+import ResultCard from "@/components/dessert-builder/ResultCard/ResultCard";
 import TextureStep from "@/components/dessert-builder/TextureStep";
 import TemperatureStep from "@/components/dessert-builder/TemperatureStep";
 import DecorationStep from "@/components/dessert-builder/DecorationStep";
@@ -14,6 +14,7 @@ import { format } from "path";
 import ShapeStep from "@/components/dessert-builder/ShapeStep";
 import AIPromptPanel from "@/components/dessert-builder/AIPromptPanel/AIPromptPanel";
 import ImageUploadPanel from "@/components/dessert-builder/ImageUploadPanel/ImageUploadPanel";
+import { createDessertPrompt } from "@/utils/createDessertPrompt";
 
 const STORAGE_KEY = "dessert-ideas";
 const LAST_OPTION_STEP = 6;
@@ -38,6 +39,8 @@ export default function DessertBuilderPage() {
 
   const isResultStep = step >= LAST_OPTION_STEP;
 
+  const aiPrompt = result ? createDessertPrompt(result) : "";
+
   //画面を開いた瞬間に、localStorage に保存されているデザート案を読み込んで、savedIdeas の初期値にする処理
   const [savedIdeas, setSavedIdeas] = useState<DessertIdea[]>(() => {
     if (typeof window === "undefined") return [];
@@ -46,7 +49,13 @@ export default function DessertBuilderPage() {
     if (!saved) return [];
 
     try {
-      return JSON.parse(saved) as DessertIdea[];
+      const parsedIdeas = JSON.parse(saved) as DessertIdea[];
+
+      return parsedIdeas.map((idea) => ({
+        ...idea,
+        shapes: idea.shapes ?? [],
+        favorite: idea.favorite ?? false,
+      }));
     } catch {
       localStorage.removeItem(STORAGE_KEY);
       return [];
