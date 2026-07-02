@@ -8,8 +8,8 @@ type SavedIdeaListProps = {
   onToggleFavorite: (id: string) => void;
 };
 
-const formatItems = (items: string[]) => {
-  return items.length > 0 ? items.join(" / ") : "指定なし";
+const formatItems = (items?: string[]) => {
+  return items && items.length > 0 ? items.join(" / ") : "指定なし";
 };
 
 const formatDate = (isoString: string) => {
@@ -87,6 +87,11 @@ export default function SavedIdeaList({
                 <div className={styles.item}>
                   <span>味</span>
                   <p>{formatItems(idea.flavors)}</p>
+                </div>
+
+                <div className={styles.item}>
+                  <span>形状</span>
+                  <p>{formatItems(idea.shapes)}</p>
                 </div>
 
                 <div className={styles.item}>
