@@ -43,14 +43,11 @@ export default function DessertBuilderPage() {
 
   //画面を開いた瞬間に、localStorage に保存されているデザート案を読み込んで、savedIdeas の初期値にする処理
   const [savedIdeas, setSavedIdeas] = useState<DessertIdea[]>([]);
-  const [isLoaded, setIsLoaded] = useState(false);
+  // const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
-    if (!saved) {
-      setIsLoaded(true);
-      return;
-    }
+    if (!saved) return;
     try {
       const parsedIdeas = JSON.parse(saved) as DessertIdea[];
 
@@ -61,21 +58,30 @@ export default function DessertBuilderPage() {
         aiPrompt: idea.aiPrompt ?? "",
         imageFileDataUrl: idea.imageFileDataUrl ?? "",
       }));
+      // eslint-disable-next-line react-hooks/set-state-in-effect
       setSavedIdeas(normarisedIdeas);
     } catch {
       localStorage.removeItem(STORAGE_KEY);
-    } finally {
-      setIsLoaded(true);
     }
   }, []);
 
-  if (typeof window === "undefined") return [];
+  const handleSavedIdea = () => {
+    if (!result) return;
 
-  useEffect(() => {
-    if (!isLoaded) return;
+    const ideaToSave: DessertIdea = {
+      ...result,
+      aiPrompt,
+      imageUrl: "",
+      imageFileDataUrl: "",
+    };
+    const alreadySaved = savedIdeas.some((idea) => idea.id === result.id);
+    if (alreadySaved) return;
 
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(savedIdeas));
-  }, [savedIdeas, isLoaded]);
+    const nextIdeas = [ideaToSave, ...savedIdeas];
+
+    setSavedIdeas(nextIdeas);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(nextIdeas));
+  };
 
   const toggleOption = (
     value: string,
@@ -156,25 +162,6 @@ export default function DessertBuilderPage() {
         idea.id === id ? { ...idea, favorite: !idea.favorite } : idea,
       ),
     );
-  };
-
-  const formatItems = (items: string[]) => {
-    return items.length > 0 ? items.join(", ") : "not specified";
-  };
-
-  const createAiPrompt = () => {
-    return `Create a professional plated dessert concept image.
-
-    DessertType: ${formatItems(selectedDessertTypes)}
-    Flavor composition: ${formatItems(selectedFlavors)}
-    Shapes: ${formatItems(selectedShapes)}
-    Texture: ${formatItems(selectedTextures)}
-    Temperature style: ${formatItems(selectedTemperatures)}
-    Decoration and finishing: ${formatItems(selectedDecorations)}
-
-    Style: modern fine dining dessert, elegant plating, luxury restaurant presentation, clean composition, realistic food photography, soft natural lighting, shallow depth of field, high-end pastry, white or neutral ceramic plate, minimal background.
-
-    Do not include text, labels, hands, people, logos, or packaging.`;
   };
 
   return (
@@ -303,13 +290,11 @@ export default function DessertBuilderPage() {
           )
         )}
 
-        {isLoaded && (
-          <SavedIdeaList
-            ideas={savedIdeas}
-            onDelete={handleDeleteIdea}
-            onToggleFavorite={toggleFavorite}
-          />
-        )}
+        <SavedIdeaList
+          ideas={savedIdeas}
+          onDelete={handleDeleteIdea}
+          onToggleFavorite={toggleFavorite}
+        />
       </section>
     </main>
   );
