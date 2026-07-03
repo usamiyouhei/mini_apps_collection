@@ -42,29 +42,40 @@ export default function DessertBuilderPage() {
   const aiPrompt = result ? createDessertPrompt(result) : "";
 
   //画面を開いた瞬間に、localStorage に保存されているデザート案を読み込んで、savedIdeas の初期値にする処理
-  const [savedIdeas, setSavedIdeas] = useState<DessertIdea[]>(() => {
-    if (typeof window === "undefined") return [];
+  const [savedIdeas, setSavedIdeas] = useState<DessertIdea[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
+
+  useEffect(() => {
     const saved = localStorage.getItem(STORAGE_KEY);
-
-    if (!saved) return [];
-
+    if (!saved) {
+      setIsLoaded(true);
+      return;
+    }
     try {
       const parsedIdeas = JSON.parse(saved) as DessertIdea[];
 
-      return parsedIdeas.map((idea) => ({
+      const normarisedIdeas = parsedIdeas.map((idea) => ({
         ...idea,
         shapes: idea.shapes ?? [],
         favorite: idea.favorite ?? false,
+        aiPrompt: idea.aiPrompt ?? "",
+        imageFileDataUrl: idea.imageFileDataUrl ?? "",
       }));
+      setSavedIdeas(normarisedIdeas);
     } catch {
       localStorage.removeItem(STORAGE_KEY);
-      return [];
+    } finally {
+      setIsLoaded(true);
     }
-  });
+  }, []);
+
+  if (typeof window === "undefined") return [];
 
   useEffect(() => {
+    if (!isLoaded) return;
+
     localStorage.setItem(STORAGE_KEY, JSON.stringify(savedIdeas));
-  }, [savedIdeas]);
+  }, [savedIdeas, isLoaded]);
 
   const toggleOption = (
     value: string,
@@ -292,11 +303,13 @@ export default function DessertBuilderPage() {
           )
         )}
 
-        <SavedIdeaList
-          ideas={savedIdeas}
-          onDelete={handleDeleteIdea}
-          onToggleFavorite={toggleFavorite}
-        />
+        {isLoaded && (
+          <SavedIdeaList
+            ideas={savedIdeas}
+            onDelete={handleDeleteIdea}
+            onToggleFavorite={toggleFavorite}
+          />
+        )}
       </section>
     </main>
   );

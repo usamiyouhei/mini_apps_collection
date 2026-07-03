@@ -36,7 +36,7 @@ export default function SavedIdeaList({
     );
   }
   return (
-    <section className={styles.savedIdea}>
+    <section className={styles.savedList}>
       <h2 className={styles.title}>保存済みアイデア</h2>
 
       <div className={styles.list}>
