@@ -51,7 +51,7 @@ export default function DessertBuilderPage() {
     try {
       const parsedIdeas = JSON.parse(saved) as DessertIdea[];
 
-      const normarisedIdeas = parsedIdeas.map((idea) => ({
+      const normalisedIdeas = parsedIdeas.map((idea) => ({
         ...idea,
         shapes: idea.shapes ?? [],
         favorite: idea.favorite ?? false,
@@ -59,13 +59,13 @@ export default function DessertBuilderPage() {
         imageFileDataUrl: idea.imageFileDataUrl ?? "",
       }));
       // eslint-disable-next-line react-hooks/set-state-in-effect
-      setSavedIdeas(normarisedIdeas);
+      setSavedIdeas(normalisedIdeas);
     } catch {
       localStorage.removeItem(STORAGE_KEY);
     }
   }, []);
 
-  const handleSavedIdea = () => {
+  const handleSaveIdea = () => {
     if (!result) return;
 
     const ideaToSave: DessertIdea = {
@@ -109,6 +109,7 @@ export default function DessertBuilderPage() {
     setSelectedFlavors([]);
     setSelectedTextures([]);
     setSelectedShapes([]);
+    setSelectedTemperatures([]);
     setSelectedDecorations([]);
     setResult(null);
   };
@@ -124,13 +125,13 @@ export default function DessertBuilderPage() {
   //   setStep(0);
   // };
 
-  const saveIdea = () => {
-    if (!result) return;
+  // const saveIdea = () => {
+  //   if (!result) return;
 
-    const alreadySaved = savedIdeas.some((idea) => idea.id === result.id);
-    if (!alreadySaved) return;
-    setSavedIdeas((prevIdeas) => [result, ...prevIdeas]);
-  };
+  //   const alreadySaved = savedIdeas.some((idea) => idea.id === result.id);
+  //   if (!alreadySaved) return;
+  //   setSavedIdeas((prevIdeas) => [result, ...prevIdeas]);
+  // };
 
   const createResult = () => {
     const newIdea: DessertIdea = {
@@ -151,17 +152,20 @@ export default function DessertBuilderPage() {
   };
 
   const handleDeleteIdea = (id: string) => {
-    setSavedIdeas((prev) => prev.filter((idea) => idea.id !== id));
+    const nextIdeas = savedIdeas.filter((idea) => idea.id !== id);
+
+    setSavedIdeas(nextIdeas);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(nextIdeas));
   };
 
   // Update
 
   const toggleFavorite = (id: string) => {
-    setSavedIdeas(
-      savedIdeas.map((idea) =>
-        idea.id === id ? { ...idea, favorite: !idea.favorite } : idea,
-      ),
+    const nextIdeas = savedIdeas.map((idea) =>
+      idea.id === id ? { ...idea, favorite: !idea.favorite } : idea,
     );
+    setSavedIdeas(nextIdeas);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(nextIdeas));
   };
 
   return (
@@ -257,7 +261,7 @@ export default function DessertBuilderPage() {
         ) : (
           result && (
             <div>
-              <ResultCard idea={result} onSave={saveIdea} />
+              <ResultCard idea={result} onSave={handleSaveIdea} />
 
               <AIPromptPanel prompt={aiPrompt} />
 
