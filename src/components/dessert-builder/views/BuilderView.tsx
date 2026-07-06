@@ -92,6 +92,21 @@ export default function BuilderView({
           onToggle={onToggleDecoration}
         />
       )}
+
+      <div className={styles.action}>
+        <button
+          type="button"
+          onClick={onBack}
+          disabled={step === 0}
+          className={styles.secondalyButton}
+        >
+          戻る
+        </button>
+
+        <button type="button" onClick={onNext} className={styles.primaryButton}>
+          {step === lastStep ? "アイデアを作成" : "次へ / スキップ"}
+        </button>
+      </div>
     </div>
   );
 }
