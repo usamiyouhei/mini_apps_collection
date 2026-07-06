@@ -15,9 +15,10 @@ import ShapeStep from "@/components/dessert-builder/ShapeStep";
 import AIPromptPanel from "@/components/dessert-builder/AIPromptPanel/AIPromptPanel";
 import ImageUploadPanel from "@/components/dessert-builder/ImageUploadPanel/ImageUploadPanel";
 import { createDessertPrompt } from "@/utils/createDessertPrompt";
+import BuilderView from "@/components/dessert-builder/views/BuilderView";
 
 const STORAGE_KEY = "dessert-ideas";
-const LAST_OPTION_STEP = 6;
+const LAST_STEP_INDEX = 5;
 
 export default function DessertBuilderPage() {
   const [step, setStep] = useState(0);
@@ -37,7 +38,7 @@ export default function DessertBuilderPage() {
   // const [imageUrl, setImageUrl] = useState("");
   // const [imageFileDataUrl, setImageFileDataUrl] = useState("");
 
-  const isResultStep = step >= LAST_OPTION_STEP;
+  // const isResultStep = step >= LAST_OPTION_STEP;
 
   const aiPrompt = result ? createDessertPrompt(result) : "";
 
@@ -96,7 +97,8 @@ export default function DessertBuilderPage() {
   };
 
   const goNext = () => {
-    setStep((prev) => Math.min(prev + 1, LAST_OPTION_STEP));
+    if (step < LAST_STEP_INDEX) setStep((prev) => prev + 1);
+    return;
   };
 
   const goBack = () => {
@@ -133,23 +135,23 @@ export default function DessertBuilderPage() {
   //   setSavedIdeas((prevIdeas) => [result, ...prevIdeas]);
   // };
 
-  const createResult = () => {
-    const newIdea: DessertIdea = {
-      id: crypto.randomUUID(),
-      dessertTypes: selectedDessertTypes,
-      flavors: selectedFlavors,
-      shapes: selectedShapes,
-      textures: selectedTextures,
-      temperatures: selectedTemperatures,
-      decorations: selectedDecorations,
-      favorite: false,
-      createdAt: new Date().toISOString(),
-    };
-    setResult(newIdea);
-    setStep(LAST_OPTION_STEP + 1);
-    // setSavedIdeas((prev) => [newIdea, ...prev]);
-    // resetSelections();
-  };
+  // const createResult = () => {
+  //   const newIdea: DessertIdea = {
+  //     id: crypto.randomUUID(),
+  //     dessertTypes: selectedDessertTypes,
+  //     flavors: selectedFlavors,
+  //     shapes: selectedShapes,
+  //     textures: selectedTextures,
+  //     temperatures: selectedTemperatures,
+  //     decorations: selectedDecorations,
+  //     favorite: false,
+  //     createdAt: new Date().toISOString(),
+  //   };
+  //   setResult(newIdea);
+  //   setStep(LAST_OPTION_STEP + 1);
+  //   // setSavedIdeas((prev) => [newIdea, ...prev]);
+  //   // resetSelections();
+  // };
 
   const handleDeleteIdea = (id: string) => {
     const nextIdeas = savedIdeas.filter((idea) => idea.id !== id);
@@ -179,119 +181,55 @@ export default function DessertBuilderPage() {
           </p>
         </div>
 
-        {!isResultStep && (
-          <p className={styles.stepText}>
-            Step {step + 1} / {LAST_OPTION_STEP}
-          </p>
-        )}
-
-        {!isResultStep && step === 0 && (
-          <DessertTypeStep
-            selectedValues={selectedDessertTypes}
-            onToggle={(value) =>
+        {!result && (
+          <BuilderView
+            step={step}
+            lastStep={LAST_STEP_INDEX}
+            selectedDessertTypes={selectedDessertTypes}
+            selectedFlavors={selectedFlavors}
+            selectedShapes={selectedShapes}
+            selectedTextures={selectedTextures}
+            selectedTemperatures={selectedTemperatures}
+            selectedDecorations={selectedDecorations}
+            onToggleDessertType={(value) =>
               toggleOption(value, selectedDessertTypes, setSelectedDessertTypes)
             }
-          />
-        )}
-
-        {!isResultStep && step === 1 && (
-          <FlavorStep
-            selectedValues={selectedFlavors}
-            onToggle={(value) =>
+            onToggleFlavor={(value) =>
               toggleOption(value, selectedFlavors, setSelectedFlavors)
             }
-          />
-        )}
-
-        {!isResultStep && step === 2 && (
-          <ShapeStep
-            selectedValues={selectedShapes}
-            onToggle={(value) =>
+            onToggleShape={(value) =>
               toggleOption(value, selectedShapes, setSelectedShapes)
             }
-          />
-        )}
-
-        {!isResultStep && step === 3 && (
-          <TextureStep
-            selectedValues={selectedTextures}
-            onToggle={(value) =>
+            onToggleTexture={(value) =>
               toggleOption(value, selectedTextures, setSelectedTextures)
             }
-          />
-        )}
-
-        {!isResultStep && step === 4 && (
-          <TemperatureStep
-            selectedValues={selectedTemperatures}
-            onToggle={(value) =>
+            onToggleTemperature={(value) =>
               toggleOption(value, selectedTemperatures, setSelectedTemperatures)
             }
+            onToggleDecoration={(value) =>
+              toggleOption(value, selectedDecorations, setSelectedDecorations)
+            }
+            onBack={goBack}
+            onNext={goNext}
           />
         )}
 
-        {!isResultStep && step === 5 && (
-          <DecorationStep
-            selectedValues={selectedDecorations}
-            onToggle={(value) => {
-              toggleOption(value, selectedDecorations, setSelectedDecorations);
-            }}
-          />
-        )}
+        {result && (
+          <div>
+            <ResultCard idea={result} onSave={handleSaveIdea} />
 
-        {!isResultStep ? (
-          <div className={styles.actions}>
-            <button
-              type="button"
-              onClick={goBack}
-              disabled={step === 0}
-              className={styles.secondaryButton}
-            >
-              戻る
-            </button>
+            <AIPromptPanel prompt={aiPrompt} />
+
+            <ImageUploadPanel />
 
             <button
               type="button"
-              onClick={goNext}
-              className={styles.primaryButton}
+              className={styles.secondlyButton}
+              onClick={resetBuilder}
             >
-              次へ / スキップ
+              最初から作り直す
             </button>
           </div>
-        ) : (
-          result && (
-            <div>
-              <ResultCard idea={result} onSave={handleSaveIdea} />
-
-              <AIPromptPanel prompt={aiPrompt} />
-
-              <ImageUploadPanel />
-
-              <button
-                type="button"
-                className={styles.secondlyButton}
-                onClick={resetBuilder}
-              >
-                最初から作り直す
-              </button>
-            </div>
-            //   <ResultCard
-            //     dessertTypes={selectedDessertTypes}
-            //     flavors={selectedFlavors}
-            //     shapes={selectedShapes}
-            //     textures={selectedTextures}
-            //     temperatures={selectedTemperatures}
-            //     decorations={selectedDecorations}
-            //     aiPrompt={createAiPrompt()}
-            //     imageUrl={imageUrl}
-            //     imageFileDataUrl={imageFileDataUrl}
-            //     onChangeImageUrl={setImageUrl}
-            //     onChangeImageFileDataUrl={setImageFileDataUrl}
-            //     onBack={goBack}
-            //     onReset={resetSelections}
-            //     onSave={handleSaveIdea}
-            //   />
-          )
         )}
 
         <SavedIdeaList
