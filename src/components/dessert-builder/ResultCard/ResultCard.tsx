@@ -5,14 +5,30 @@ import styles from "./ResultCard.module.scss";
 type ResultCardProps = {
   idea: DessertIdea;
   aiPrompt: string;
+  imageFileUrl: string;
+  imageFileDataUrl: string;
+  onChangeImageUrl: (value: string) => void;
+  onChangeImageFileDataUrl: (value: string) => void;
+  onBack: () => void;
   onSave: () => void;
+  onReset: () => void;
 };
 
 const formatItems = (items: string[] | undefined) => {
   return items && items.length > 0 ? items.join(" / ") : "指定なし";
 };
 
-export default function ResultCard({ idea, onSave }: ResultCardProps) {
+export default function ResultCard({
+  idea,
+  aiPrompt,
+  imageFileUrl,
+  imageFileDataUrl,
+  onChangeImageUrl,
+  onChangeImageFileDataUrl,
+  onBack,
+  onReset,
+  onSave,
+}: ResultCardProps) {
   return (
     <section>
       <div className={styles.header}>
