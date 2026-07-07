@@ -4,6 +4,7 @@ import styles from "./ResultCard.module.scss";
 
 type ResultCardProps = {
   idea: DessertIdea;
+  aiPrompt: string;
   onSave: () => void;
 };
 
