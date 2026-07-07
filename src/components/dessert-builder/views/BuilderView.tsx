@@ -16,13 +16,13 @@ type BuilderViewProps = {
   selectedFlavors: string[];
   selectedShapes: string[];
   selectedTextures: string[];
-  selectedTemperature: string[];
-  selectedDecoration: string[];
+  selectedTemperatures: string[];
+  selectedDecorations: string[];
 
   onToggleDessertType: (value: string) => void;
-  onToggleFlavors: (value: string) => void;
-  onToggleShapes: (value: string) => void;
-  onToggleTextures: (value: string) => void;
+  onToggleFlavor: (value: string) => void;
+  onToggleShape: (value: string) => void;
+  onToggleTexture: (value: string) => void;
   onToggleTemperature: (value: string) => void;
   onToggleDecoration: (value: string) => void;
 
@@ -37,12 +37,12 @@ export default function BuilderView({
   selectedFlavors,
   selectedShapes,
   selectedTextures,
-  selectedTemperature,
-  selectedDecoration,
+  selectedTemperatures,
+  selectedDecorations,
   onToggleDessertType,
-  onToggleFlavors,
-  onToggleShapes,
-  onToggleTextures,
+  onToggleFlavor,
+  onToggleShape,
+  onToggleTexture,
   onToggleTemperature,
   onToggleDecoration,
   onBack,
@@ -64,31 +64,31 @@ export default function BuilderView({
       {step === 1 && (
         <FlavorStep
           selectedValues={selectedFlavors}
-          onToggle={onToggleFlavors}
+          onToggle={onToggleFlavor}
         />
       )}
 
       {step === 2 && (
-        <ShapeStep selectedValues={selectedShapes} onToggle={onToggleShapes} />
+        <ShapeStep selectedValues={selectedShapes} onToggle={onToggleShape} />
       )}
 
       {step === 3 && (
         <TextureStep
           selectedValues={selectedTextures}
-          onToggle={onToggleTextures}
+          onToggle={onToggleTexture}
         />
       )}
 
       {step === 4 && (
         <TemperatureStep
-          selectedValues={selectedTemperature}
+          selectedValues={selectedTemperatures}
           onToggle={onToggleTemperature}
         />
       )}
 
       {step === 5 && (
         <DecorationStep
-          selectedValues={selectedDecoration}
+          selectedValues={selectedDecorations}
           onToggle={onToggleDecoration}
         />
       )}
