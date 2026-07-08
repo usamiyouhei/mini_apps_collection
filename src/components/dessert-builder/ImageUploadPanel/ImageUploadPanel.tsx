@@ -1,16 +1,29 @@
 import React, { ChangeEvent, DragEvent, useState } from "react";
 import styles from "./ImageUploadPanel.module.scss";
 
-export default function ImageUploadPanel() {
-  const [imageUrl, setImageUrl] = useState("");
-  const [filePreviewUrl, setFilePreviewUrl] = useState("");
+type ImageUploadPanel = {
+  imageUrl: string;
+  imageFileDataUrl: string;
+  onChangeImageUrl: (value: string) => void;
+  onChangeImageFileDataUrl: (value: string) => void;
+};
+
+export default function ImageUploadPanel({
+  imageUrl,
+  imageFileDataUrl,
+  onChangeImageUrl,
+  onChangeImageFileDataUrl,
+}: ImageUploadPanel) {
+  const previewSrc = imageFileDataUrl || imageUrl;
+  // const [imageUrl, setImageUrl] = useState("");
+  // const [filePreviewUrl, setFilePreviewUrl] = useState("");
   const [isDragging, setIsDragging] = useState(false);
 
-  const previewUrl = filePreviewUrl || imageUrl;
+  const previewUrl = imageFileDataUrl || imageUrl;
 
   const handleImageUrlChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setImageUrl(event.target.value);
-    setFilePreviewUrl("");
+    onChangeImageUrl(event.target.value);
+    onChangeImageFileDataUrl("");
   };
 
   const handleFile = (file: File) => {
@@ -20,8 +33,8 @@ export default function ImageUploadPanel() {
 
     reader.onload = () => {
       if (typeof reader.result === "string") {
-        setFilePreviewUrl(reader.result);
-        setImageUrl("");
+        onChangeImageFileDataUrl(reader.result);
+        onChangeImageUrl("");
       }
     };
     reader.readAsDataURL(file);
@@ -53,8 +66,8 @@ export default function ImageUploadPanel() {
   };
 
   const clearImage = () => {
-    setImageUrl("");
-    setFilePreviewUrl("");
+    onChangeImageUrl("");
+    onChangeImageFileDataUrl("");
   };
 
   return (
@@ -95,6 +108,7 @@ export default function ImageUploadPanel() {
 
         {previewUrl && (
           <div>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={previewUrl} alt="AI生成画像プレビュー" />
             <button
               type="button"

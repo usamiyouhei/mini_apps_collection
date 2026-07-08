@@ -1,11 +1,13 @@
 import { DessertIdea } from "@/types/dessert";
 import React from "react";
 import styles from "./ResultCard.module.scss";
+import AIPromptPanel from "../AIPromptPanel/AIPromptPanel";
+import ImageUploadPanel from "../ImageUploadPanel/ImageUploadPanel";
 
 type ResultCardProps = {
   idea: DessertIdea;
   aiPrompt: string;
-  imageFileUrl: string;
+  imageUrl: string;
   imageFileDataUrl: string;
   onChangeImageUrl: (value: string) => void;
   onChangeImageFileDataUrl: (value: string) => void;
@@ -21,7 +23,7 @@ const formatItems = (items: string[] | undefined) => {
 export default function ResultCard({
   idea,
   aiPrompt,
-  imageFileUrl,
+  imageUrl,
   imageFileDataUrl,
   onChangeImageUrl,
   onChangeImageFileDataUrl,
@@ -64,6 +66,15 @@ export default function ResultCard({
           <p>{formatItems(idea.decorations)}</p>
         </div>
       </div>
+
+      <AIPromptPanel prompt={aiPrompt} />
+
+      <ImageUploadPanel
+        imageUrl={imageUrl}
+        imageFileDataUrl={imageFileDataUrl}
+        onChangeImageUrl={onChangeImageUrl}
+        onChangeImageFileDataUrl={onChangeImageFileDataUrl}
+      />
 
       <button type="button" className={styles.saveButton} onClick={onSave}>
         このアイデアを保存
