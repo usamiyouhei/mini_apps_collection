@@ -16,6 +16,7 @@ import AIPromptPanel from "@/components/dessert-builder/AIPromptPanel/AIPromptPa
 import ImageUploadPanel from "@/components/dessert-builder/ImageUploadPanel/ImageUploadPanel";
 import { createDessertPrompt } from "@/utils/createDessertPrompt";
 import BuilderView from "@/components/dessert-builder/views/BuilderView";
+import ResultView from "@/components/dessert-builder/views/ResultView";
 
 const STORAGE_KEY = "dessert-ideas";
 const LAST_STEP_INDEX = 5;
@@ -35,8 +36,8 @@ export default function DessertBuilderPage() {
   const [selectedDecorations, setSelectedDecorations] = useState<string[]>([]);
 
   const [result, setResult] = useState<DessertIdea | null>(null);
-  // const [imageUrl, setImageUrl] = useState("");
-  // const [imageFileDataUrl, setImageFileDataUrl] = useState("");
+  const [imageUrl, setImageUrl] = useState("");
+  const [imageFileDataUrl, setImageFileDataUrl] = useState("");
 
   // const isResultStep = step >= LAST_OPTION_STEP;
 
@@ -215,21 +216,17 @@ export default function DessertBuilderPage() {
         )}
 
         {result && (
-          <div>
-            <ResultCard idea={result} onSave={handleSaveIdea} />
-
-            <AIPromptPanel prompt={aiPrompt} />
-
-            <ImageUploadPanel />
-
-            <button
-              type="button"
-              className={styles.secondlyButton}
-              onClick={resetBuilder}
-            >
-              最初から作り直す
-            </button>
-          </div>
+          <ResultView
+            result={result}
+            aiPrompt={aiPrompt}
+            imageUrl={imageUrl}
+            imageFileDataUrl={imageFileDataUrl}
+            onChangeImageUrl={setImageUrl}
+            onChangeImageFileDataUrl={setImageFileDataUrl}
+            onSave={handleSaveIdea}
+            onReset={resetBuilder}
+            onBack={goBack}
+          />
         )}
 
         <SavedIdeaList
