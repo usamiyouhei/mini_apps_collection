@@ -1,0 +1,53 @@
+.panel {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #eadfce;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.header {
+  margin-top: 16px;
+}
+
+.label {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #9a7b4f;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  color: #2b2118;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 140px;
+  padding: 14px;
+  border: 1px solid #eadfce;
+  border-radius: 14px;
+  background: #fffaf3;
+  color: #3a2a1d;
+  font-size: 14px;
+  line-height: 1.7;
+  resize: vertical;
+}
+
+.actions {
+  margin-top: 12px;
+}
+
+.actions button {
+  padding: 6px 8px;
+  border: none;
+  border-radius: 999px;
+  background: #9a7b4f;
+  color: #fff;
+  font-weight: 700;
+  cursor: pointer;
+}
