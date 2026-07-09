@@ -1,0 +1,98 @@
+.panel {
+  margin-top: 24px;
+  padding: 20px;
+  border: 1px solid #eadfce;
+  border-radius: 20px;
+  background: #fff;
+}
+
+.header {
+  margin-bottom: 16px;
+}
+
+.label {
+  margin: 0 0 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #9a7b4f;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-size: 18px;
+  color: #2b2118;
+}
+
+.field {
+  display: grid;
+  gap: 14px;
+}
+
+.inputLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: #5f4930;
+}
+
+.input {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid #eadfce;
+  border-radius: 12px;
+  background: #fffaf3;
+  color: #3a2a1d;
+  font-size: 14px;
+}
+
+.input:focus {
+  outline: 2px solid #d6b98c;
+  border-color: transparent;
+}
+
+.dropArea {
+  display: grid;
+  place-items: center;
+  min-height: 120px;
+  padding: 20px;
+  border: 2px dashed #d8c4a5;
+  border-radius: 16px;
+  background: #fffaf3;
+  color: #7a6040;
+  font-size: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.draggind {
+  background: #f3eadb;
+  border-color: #9a7b4f;
+}
+
+.fileInput {
+  display: none;
+}
+
+.field img {
+  width: 100%;
+  max-height: 360px;
+  object-fit: cover;
+  border-radius: 16px;
+  border: 1px solid #eadfce;
+}
+
+.clearButton {
+  margin-top: 12px;
+  padding: 6px 8px;
+  border: 1px solid #d8c4a5;
+  border-radius: 999px;
+  background: #fff;
+  color: #5f4930;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.clearButton:hover {
+  background: #fffaf3;
+}
