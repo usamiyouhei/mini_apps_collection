@@ -51,3 +51,13 @@
   font-weight: 700;
   cursor: pointer;
 }
+
+.actions button:hover {
+  opacity: 0.85;
+}
+
+.message {
+  margin: 10px 0 0;
+  font-size: 13px;
+  color: #6f5633;
+}
