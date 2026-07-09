@@ -3,17 +3,7 @@ import { useEffect, useState } from "react";
 import styles from "./dessert-idea-builder.module.scss";
 
 import type { DessertIdea } from "@/types/dessert";
-import DessertTypeStep from "@/components/dessert-builder/DessertTypeStep";
-import FlavorStep from "@/components/dessert-builder/FlavorStep";
-import ResultCard from "@/components/dessert-builder/ResultCard/ResultCard";
-import TextureStep from "@/components/dessert-builder/TextureStep";
-import TemperatureStep from "@/components/dessert-builder/TemperatureStep";
-import DecorationStep from "@/components/dessert-builder/DecorationStep";
 import SavedIdeaList from "@/components/dessert-builder/SavedIdeaList";
-import { format } from "path";
-import ShapeStep from "@/components/dessert-builder/ShapeStep";
-import AIPromptPanel from "@/components/dessert-builder/AIPromptPanel/AIPromptPanel";
-import ImageUploadPanel from "@/components/dessert-builder/ImageUploadPanel/ImageUploadPanel";
 import { createDessertPrompt } from "@/utils/createDessertPrompt";
 import BuilderView from "@/components/dessert-builder/views/BuilderView";
 import ResultView from "@/components/dessert-builder/views/ResultView";
@@ -73,8 +63,8 @@ export default function DessertBuilderPage() {
     const ideaToSave: DessertIdea = {
       ...result,
       aiPrompt,
-      imageUrl: "",
-      imageFileDataUrl: "",
+      imageUrl,
+      imageFileDataUrl,
     };
     const alreadySaved = savedIdeas.some((idea) => idea.id === result.id);
     if (alreadySaved) return;
@@ -98,8 +88,11 @@ export default function DessertBuilderPage() {
   };
 
   const goNext = () => {
-    if (step < LAST_STEP_INDEX) setStep((prev) => prev + 1);
-    return;
+    if (step < LAST_STEP_INDEX) {
+      setStep((prev) => prev + 1);
+      return;
+    }
+    createResult();
   };
 
   const goBack = () => {
@@ -115,6 +108,8 @@ export default function DessertBuilderPage() {
     setSelectedTemperatures([]);
     setSelectedDecorations([]);
     setResult(null);
+    setImageUrl("");
+    setImageFileDataUrl("");
   };
 
   // const resetSelections = () => {
@@ -136,23 +131,20 @@ export default function DessertBuilderPage() {
   //   setSavedIdeas((prevIdeas) => [result, ...prevIdeas]);
   // };
 
-  // const createResult = () => {
-  //   const newIdea: DessertIdea = {
-  //     id: crypto.randomUUID(),
-  //     dessertTypes: selectedDessertTypes,
-  //     flavors: selectedFlavors,
-  //     shapes: selectedShapes,
-  //     textures: selectedTextures,
-  //     temperatures: selectedTemperatures,
-  //     decorations: selectedDecorations,
-  //     favorite: false,
-  //     createdAt: new Date().toISOString(),
-  //   };
-  //   setResult(newIdea);
-  //   setStep(LAST_OPTION_STEP + 1);
-  //   // setSavedIdeas((prev) => [newIdea, ...prev]);
-  //   // resetSelections();
-  // };
+  const createResult = () => {
+    const newIdea: DessertIdea = {
+      id: crypto.randomUUID(),
+      dessertTypes: selectedDessertTypes,
+      flavors: selectedFlavors,
+      shapes: selectedShapes,
+      textures: selectedTextures,
+      temperatures: selectedTemperatures,
+      decorations: selectedDecorations,
+      favorite: false,
+      createdAt: new Date().toISOString(),
+    };
+    setResult(newIdea);
+  };
 
   const handleDeleteIdea = (id: string) => {
     const nextIdeas = savedIdeas.filter((idea) => idea.id !== id);
