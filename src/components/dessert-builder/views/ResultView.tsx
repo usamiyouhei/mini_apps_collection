@@ -41,12 +41,12 @@ export default function ResultView({
         onReset={onReset}
       />
 
-      <ImageUploadPanel
+      {/* <ImageUploadPanel
         imageUrl={imageUrl}
         imageFileDataUrl={imageFileDataUrl}
         onChangeImageUrl={onChangeImageUrl}
         onChangeImageFileDataUrl={onChangeImageFileDataUrl}
-      />
+      /> */}
 
       <button type="button" className={styles.secondalybutton}>
         最初から作り直す

@@ -1,0 +1,59 @@
+.header {
+  margin-top: 24px;
+}
+
+.label {
+  margin: 0 0 6px;
+  font-style: 12px;
+  font-weight: 700;
+  color: #9a7b4f;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  color: #2b2118;
+}
+
+.list {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.item {
+  padding: 16px;
+  border: 1px solid #fffaf3;
+  border-radius: 16px;
+  background: #fffaf3;
+}
+
+.itemLabel {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 12px;
+  font-weight: 700;
+  color: #a57a42;
+}
+
+.item p {
+  margin: 0;
+  color: #3a2a1d;
+  line-height: 1.6;
+}
+
+.saveButton {
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 999px;
+  background: #2b2118;
+  color: #fff;
+}
+
+.saveButton:hover {
+  opacity: 0.86;
+}

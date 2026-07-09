@@ -52,7 +52,7 @@ export default function ImageUploadPanel({
   };
 
   const handleDragLeave = () => {
-    setIsDragging(true);
+    setIsDragging(false);
   };
 
   const handleDrop = (event: DragEvent<HTMLLabelElement>) => {
