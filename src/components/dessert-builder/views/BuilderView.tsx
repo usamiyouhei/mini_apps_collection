@@ -1,6 +1,5 @@
 import React from "react";
 import styles from "./BuilderView.module.scss";
-import StepProgress from "../layout/StepProgress";
 import DessertTypeStep from "../DessertTypeStep";
 import FlavorStep from "../FlavorStep";
 import ShapeStep from "../ShapeStep";
@@ -51,7 +50,7 @@ export default function BuilderView({
   return (
     <div className={styles.builderView}>
       <p className={styles.stepText}>
-        Step {step + 1} / {step - 1}
+        Step {step + 1} / {lastStep + 1}
       </p>
 
       {step === 0 && (
@@ -93,12 +92,12 @@ export default function BuilderView({
         />
       )}
 
-      <div className={styles.action}>
+      <div className={styles.actions}>
         <button
           type="button"
           onClick={onBack}
           disabled={step === 0}
-          className={styles.secondalyButton}
+          className={styles.secondaryButton}
         >
           戻る
         </button>

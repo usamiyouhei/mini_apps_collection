@@ -1,0 +1,94 @@
+.builderView {
+  width: 100%;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.stepText {
+  margin: 0 0 20px;
+  color: #9a7b4f;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 32px;
+}
+
+.primaryButton,
+.secondaryButton {
+  min-height: 48px;
+  padding: 12px 24px;
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease,
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.primaryButton {
+  flex: 1;
+  border: 1px solid #2b2118;
+  background: #2b2118;
+  color: #fff;
+}
+
+.primaryButton:hover {
+  background: #49392d;
+  border-color: #49392d;
+  color: #fff;
+}
+
+.primaryButton:active {
+  transform: translateY(0);
+}
+
+.secondaryButton {
+  min-width: 120px;
+  border: 1px solid #d8c4a5;
+  background: #ffffff;
+  color: #5f4930;
+}
+
+.secondaryButton:hover:not(:disabled) {
+  background: #fffaf3;
+  border-color: #b99c70;
+}
+
+.secondaryButton:disabled {
+  color: #b9afa4;
+  background: #f5f2ee;
+  border-color: #e5ded5;
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible {
+  outline: 3px solid rgb(154 123 79 / 25%);
+  outline-offset: 3px;
+}
+
+@media (max-width: 600px) {
+  .builderView {
+    padding: 24px 16px 40px;
+  }
+  .actions {
+    flex-direction: column-reverse;
+  }
+
+  .primaryButton,
+  .secondaryButton {
+    width: 100%;
+  }
+}
