@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./memo.module.scss";
 
 export default function MemoPage() {
   return (
