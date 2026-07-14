@@ -49,3 +49,13 @@ export async function updateMemo(id: number, input: string): Promise<Memo[]> {
   }
   return response.json();
 }
+
+export async function deleteMemo(id: string): Promise<void> {
+  const response = await fetch(`${API_URL}/${id}`, {
+    method: "DELETE",
+  });
+
+  if (!response.ok) {
+    throw new Error("メモの削除に失敗しました");
+  }
+}
