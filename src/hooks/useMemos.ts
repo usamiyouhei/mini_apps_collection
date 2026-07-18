@@ -1,32 +1,34 @@
 "use client";
 
-import { createMemo, fetchMemos, updateMemo } from "@/services/memoApi";
-import { Memo } from "@/types/memo";
-import { useCallback, useEffect, useState } from "react";
+import {
+  createMemo,
+  deleteMemo,
+  fetchMemos,
+  updateMemo,
+} from "@/services/memoApi";
+import type { Memo } from "@/types/memo";
+import { useEffect, useState } from "react";
 
-export function useMemo() {
+export function useMemos() {
   const [memos, setMemos] = useState<Memo[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 
-  const loadMemos = useCallback(async () => {
-    try {
-      setIsLoading(true);
-      setError("");
-
-      const data = await fetchMemos();
-
-      setMemos(data);
-    } catch (error) {
-      setError(
-        error instanceof Error ? error.message : "メモの取得に失敗しました",
-      );
-    } finally {
-      setIsLoading(false);
-    }
-  }, []);
-
   useEffect(() => {
+    const loadMemos = async () => {
+      try {
+        const data = await fetchMemos();
+
+        setMemos(data);
+      } catch (error) {
+        setError(
+          error instanceof Error ? error.message : "メモの取得に失敗しました",
+        );
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
     void loadMemos();
   }, []);
 
@@ -51,9 +53,8 @@ export function useMemo() {
   };
 
   const editMemo = async (id: number, title: string, body: string) => {
+    setError("");
     try {
-      setError("");
-
       const updatedMemo = await updateMemo(id, { title, body });
       setMemos((currentMemos) =>
         currentMemos.map((memo) =>
@@ -66,8 +67,20 @@ export function useMemo() {
             : memo,
         ),
       );
-    } catch (error) {}
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "編集に失敗しました");
+    }
   };
 
-  return { memos, isLoading, error };
+  const removeMemo = async (id: number) => {
+    try {
+      await deleteMemo(id);
+
+      setMemos((currentMemos) => currentMemos.filter((memo) => memo.id !== id));
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "削除に失敗しました。");
+    }
+  };
+
+  return { memos, isLoading, error, addMemo, editMemo, removeMemo };
 }
