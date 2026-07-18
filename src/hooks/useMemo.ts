@@ -1,6 +1,6 @@
 "use client";
 
-import { fetchMemos } from "@/services/memoApi";
+import { createMemo, fetchMemos, updateMemo } from "@/services/memoApi";
 import { Memo } from "@/types/memo";
 import { useCallback, useEffect, useState } from "react";
 
@@ -30,7 +30,44 @@ export function useMemo() {
     void loadMemos();
   }, []);
 
-  const addMemos = async () => {};
+  const addMemo = async (title: string, body: string) => {
+    setError("");
+    try {
+      const newMemo = await createMemo({
+        title,
+        body,
+      });
+
+      setMemos((currentMemos) => [
+        {
+          ...newMemo,
+          id: Date.now(),
+        },
+        ...currentMemos,
+      ]);
+    } catch (error) {
+      setError(error instanceof Error ? error.message : "追加に失敗しました");
+    }
+  };
+
+  const editMemo = async (id: number, title: string, body: string) => {
+    try {
+      setError("");
+
+      const updatedMemo = await updateMemo(id, { title, body });
+      setMemos((currentMemos) =>
+        currentMemos.map((memo) =>
+          memo.id === id
+            ? {
+                ...memo,
+                title: updatedMemo.title,
+                body: updatedMemo.body,
+              }
+            : memo,
+        ),
+      );
+    } catch (error) {}
+  };
 
   return { memos, isLoading, error };
 }

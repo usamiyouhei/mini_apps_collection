@@ -5,6 +5,11 @@ type CreateMemoInput = {
   body: string;
 };
 
+type UpdateMemoInput = {
+  title: string;
+  body: string;
+};
+
 const API_URL = "https://jsonplaceholder.typicode.com/posts";
 
 export async function fetchMemos(): Promise<Memo[]> {
@@ -19,7 +24,7 @@ export async function fetchMemos(): Promise<Memo[]> {
   return data;
 }
 
-export async function createMemo(input: CreateMemoInput): Promise<Memo[]> {
+export async function createMemo(input: CreateMemoInput): Promise<Memo> {
   const response = await fetch(API_URL, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
@@ -35,7 +40,10 @@ export async function createMemo(input: CreateMemoInput): Promise<Memo[]> {
   return response.json();
 }
 
-export async function updateMemo(id: number, input: string): Promise<Memo[]> {
+export async function updateMemo(
+  id: number,
+  input: UpdateMemoInput,
+): Promise<Memo> {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "PATCH",
     headers: {
@@ -50,7 +58,7 @@ export async function updateMemo(id: number, input: string): Promise<Memo[]> {
   return response.json();
 }
 
-export async function deleteMemo(id: string): Promise<void> {
+export async function deleteMemo(id: number): Promise<void> {
   const response = await fetch(`${API_URL}/${id}`, {
     method: "DELETE",
   });
