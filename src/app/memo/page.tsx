@@ -1,4 +1,5 @@
 "use client";
+import MemoList from "@/components/memo/MemoList";
 import styles from "./memo.module.scss";
 import { useMemos } from "@/hooks/useMemos";
 
@@ -16,7 +17,9 @@ export default function MemoPage() {
     <main className={styles.container}>
       <h1 className={styles.mainTitle}>Memo App</h1>
 
-      {memos.length === 0 ? (
+      <MemoList memos={memos} />
+
+      {/* {memos.length === 0 ? (
         <p>メモはありません。</p>
       ) : (
         <ul className={styles.memoList}>
@@ -27,7 +30,7 @@ export default function MemoPage() {
             </li>
           ))}
         </ul>
-      )}
+      )} */}
     </main>
   );
 }
