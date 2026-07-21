@@ -2,9 +2,10 @@
 import MemoList from "@/components/memo/MemoList";
 import styles from "./memo.module.scss";
 import { useMemos } from "@/hooks/useMemos";
+import MemoForm from "@/components/memo/MemoForm";
 
 export default function MemoPage() {
-  const { memos, isLoading, error } = useMemos();
+  const { memos, isLoading, error, addMemo } = useMemos();
 
   if (isLoading) {
     return <p>読み込み中...</p>;
@@ -16,6 +17,10 @@ export default function MemoPage() {
   return (
     <main className={styles.container}>
       <h1 className={styles.mainTitle}>Memo App</h1>
+
+      <MemoForm onAdd={addMemo} />
+
+      {error && <p>{error}</p>}
 
       <MemoList memos={memos} />
 
