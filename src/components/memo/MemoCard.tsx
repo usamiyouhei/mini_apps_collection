@@ -12,6 +12,7 @@ export default function MemoCard({ memo, onRemove }: MemoCardProps) {
         <h2 className={styles.memoTitle}>{memo.title}</h2>
         <p className={styles.memoBody}>{memo.body}</p>
         <div className={styles.buttonContents}>
+          <button>編集</button>
           <button onClick={onRemove}>削除</button>
         </div>
       </li>

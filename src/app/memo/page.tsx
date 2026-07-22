@@ -3,9 +3,12 @@ import MemoList from "@/components/memo/MemoList";
 import styles from "./memo.module.scss";
 import { useMemos } from "@/hooks/useMemos";
 import MemoForm from "@/components/memo/MemoForm";
+import { useState } from "react";
+import { Memo } from "@/types/memo";
 
 export default function MemoPage() {
-  const { memos, isLoading, error, addMemo } = useMemos();
+  const { memos, isLoading, error, addMemo, editMemo, removeMemo } = useMemos();
+  const [editingMemo, setEditingMemo] = useState<Memo | null>(null);
 
   if (isLoading) {
     return <p>読み込み中...</p>;
@@ -22,7 +25,7 @@ export default function MemoPage() {
 
       {error && <p>{error}</p>}
 
-      <MemoList memos={memos} />
+      <MemoList memos={memos} onRemove={removeMemo} />
 
       {/* {memos.length === 0 ? (
         <p>メモはありません。</p>
