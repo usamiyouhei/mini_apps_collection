@@ -22,5 +22,9 @@ export default function MemoModal({ memo, onEdit, onClose }: MemoModalProps) {
     await onEdit(memo.id, title, body);
     onClose();
   };
-  return <div className={styles.overlay}></div>;
+  return (
+    <div className={styles.overlay}>
+      <div className={styles.modal}></div>
+    </div>
+  );
 }
