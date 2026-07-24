@@ -10,5 +10,16 @@ type MemoModalProps = {
 export default function MemoModal({ memo, onEdit, onClose }: MemoModalProps) {
   const [title, setTitle] = useState(memo.title);
   const [body, setBody] = useState(memo.body);
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!title.trim() || !body.trim()) {
+      return;
+    }
+
+    await onEdit(memo.id, title, body);
+    onClose();
+  };
   return <div></div>;
 }
