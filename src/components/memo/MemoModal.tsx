@@ -1,5 +1,6 @@
 import { Memo } from "@/types/memo";
 import React, { useState } from "react";
+import styles from "./MemoModal.module.scss";
 
 type MemoModalProps = {
   memo: Memo;
@@ -21,5 +22,5 @@ export default function MemoModal({ memo, onEdit, onClose }: MemoModalProps) {
     await onEdit(memo.id, title, body);
     onClose();
   };
-  return <div></div>;
+  return <div className={styles.overlay}></div>;
 }
