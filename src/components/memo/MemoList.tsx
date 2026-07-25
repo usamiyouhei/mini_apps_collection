@@ -4,10 +4,11 @@ import styles from "./MemoList.module.scss";
 
 type MemoListProps = {
   memos: Memo[];
+  onEdit: (memo: Memo) => void;
   onRemove: (id: number) => void | Promise<void>;
 };
 
-export default function MemoList({ memos, onRemove }: MemoListProps) {
+export default function MemoList({ memos, onEdit, onRemove }: MemoListProps) {
   if (memos.length === 0) {
     return <p>メモはありません。</p>;
   }
@@ -17,6 +18,7 @@ export default function MemoList({ memos, onRemove }: MemoListProps) {
         <MemoCard
           key={memo.id}
           memo={memo}
+          onEdit={() => onEdit(memo)}
           onRemove={() => onRemove(memo.id)}
         />
       ))}
