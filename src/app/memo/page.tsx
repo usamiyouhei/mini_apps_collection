@@ -5,6 +5,7 @@ import { useMemos } from "@/hooks/useMemos";
 import MemoForm from "@/components/memo/MemoForm";
 import { useState } from "react";
 import { Memo } from "@/types/memo";
+import MemoModal from "@/components/memo/MemoModal";
 
 export default function MemoPage() {
   const { memos, isLoading, error, addMemo, editMemo, removeMemo } = useMemos();
@@ -26,6 +27,14 @@ export default function MemoPage() {
       {error && <p>{error}</p>}
 
       <MemoList memos={memos} onRemove={removeMemo} />
+
+      {editingMemo && (
+        <MemoModal
+          memo={editingMemo}
+          onEdit={editMemo}
+          onClose={() => setEditingMemo(null)}
+        />
+      )}
 
       {/* {memos.length === 0 ? (
         <p>メモはありません。</p>
