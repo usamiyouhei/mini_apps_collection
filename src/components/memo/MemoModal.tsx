@@ -30,8 +30,15 @@ export default function MemoModal({ memo, onEdit, onClose }: MemoModalProps) {
 
         <form className={styles.form} onSubmit={handleSubmit}>
           <div className={styles.field}>
-            <label htmlFor="edit-title">本文</label>
+            <label htmlFor="edit-title">タイトル</label>
 
+            <input
+              id="edit-title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+            <label htmlFor="edit-body">本文</label>
             <textarea
               id="edit-body"
               value={body}
