@@ -24,7 +24,28 @@ export default function MemoModal({ memo, onEdit, onClose }: MemoModalProps) {
   };
   return (
     <div className={styles.overlay}>
-      <div className={styles.modal}></div>
+      <div className={styles.modal}>
+        <h2>メモを編集</h2>
+
+        <form className={styles.form} onSubmit={handleSubmit}>
+          <div className={styles.field}>
+            <label htmlFor="edit-title">本文</label>
+
+            <textarea
+              id="edit-body"
+              value={body}
+              onChange={(e) => setBody(e.target.value)}
+            />
+          </div>
+
+          <div className={styles.actions}>
+            <button type="button" onClick={onClose}>
+              キャンセル
+            </button>
+            <button type="submit">保存</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }
