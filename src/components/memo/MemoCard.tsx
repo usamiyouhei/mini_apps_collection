@@ -3,19 +3,20 @@ import styles from "./MemoCard.module.scss";
 
 type MemoCardProps = {
   memo: Memo;
+  onEdit: () => void;
   onRemove: () => void;
 };
-export default function MemoCard({ memo, onRemove }: MemoCardProps) {
+export default function MemoCard({ memo, onEdit, onRemove }: MemoCardProps) {
   return (
-    <div className={styles.card}>
-      <li className={styles.memoItem}>
+    <li className={styles.memoItem}>
+      <div className={styles.card}>
         <h2 className={styles.memoTitle}>{memo.title}</h2>
         <p className={styles.memoBody}>{memo.body}</p>
         <div className={styles.buttonContents}>
-          <button>編集</button>
+          <button onClick={onEdit}>編集</button>
           <button onClick={onRemove}>削除</button>
         </div>
-      </li>
-    </div>
+      </div>
+    </li>
   );
 }

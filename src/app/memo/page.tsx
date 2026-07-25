@@ -11,6 +11,12 @@ export default function MemoPage() {
   const { memos, isLoading, error, addMemo, editMemo, removeMemo } = useMemos();
   const [editingMemo, setEditingMemo] = useState<Memo | null>(null);
 
+  const handleOpenEdit = (memo: Memo) => {
+    console.log("編集ボタンが押された", memo);
+
+    setEditingMemo(memo);
+  };
+
   if (isLoading) {
     return <p>読み込み中...</p>;
   }
@@ -26,14 +32,17 @@ export default function MemoPage() {
 
       {error && <p>{error}</p>}
 
-      <MemoList memos={memos} onRemove={removeMemo} />
+      <MemoList memos={memos} onRemove={removeMemo} onEdit={handleOpenEdit} />
 
       {editingMemo && (
-        <MemoModal
-          memo={editingMemo}
-          onEdit={editMemo}
-          onClose={() => setEditingMemo(null)}
-        />
+        <>
+          <p>モーダル</p>
+          <MemoModal
+            memo={editingMemo}
+            onEdit={editMemo}
+            onClose={() => setEditingMemo(null)}
+          />
+        </>
       )}
 
       {/* {memos.length === 0 ? (

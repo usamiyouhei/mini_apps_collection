@@ -9,6 +9,7 @@ type MemoModalProps = {
 };
 
 export default function MemoModal({ memo, onEdit, onClose }: MemoModalProps) {
+  console.log("MemoModalが描画された");
   const [title, setTitle] = useState(memo.title);
   const [body, setBody] = useState(memo.body);
 
